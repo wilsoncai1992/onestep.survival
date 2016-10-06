@@ -1,5 +1,4 @@
 # onestep_survival
-==========
 
 <!-- [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/onestep_surv)](http://cran.rstudio.com/web/packages/onestep_surv/index.html) -->
 <!-- [![](http://cranlogs.r-pkg.org/badges/onestep_surv)](http://cran.rstudio.com/web/packages/onestep_surv/index.html) [![](http://cranlogs.r-pkg.org/badges/grand-total/onestep_surv)](http://cran.rstudio.com/web/packages/onestep_surv/index.html) -->
@@ -43,7 +42,7 @@ help(package = 'onestep_surv')
 
 ### Citation
 To cite `onestep_surv` in publications, please use:
-> Sofrygin O, van der Laan MJ, Neugebauer R (2015). *onestep_surv: Simulating Longitudinal Data with Causal Inference Applications.* R package version 0.5.
+> Cai W, van der Laan MJ (2016). *onestep_surv: xxxxxx.* R package version 0.1.
 
 ### Funding
 
