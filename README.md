@@ -11,14 +11,14 @@ The `onestep_surv` R package is a tool for .
 To install the CRAN release version of `onestep_surv`: 
 
 ```R
-devtools:install_github('benkeser/survtmle')
+devtools:install_github('wilsoncai1992/onestep_surv')
 install.packages('onestep_surv')
 ```
 
 To install the development version (requires the `devtools` package):
 
 ```R
-devtools:install_github('benkeser/survtmle')
+devtools:install_github('wilsoncai1992/onestep_surv')
 devtools::install_github('wilsoncai1992/onestep_surv', build_vignettes = FALSE)
 ```
 
