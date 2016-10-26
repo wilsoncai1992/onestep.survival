@@ -41,6 +41,11 @@ help(package = 'onestep_surv')
 
 ### Brief overview
 
+#### Data structure
+
+The data input of all methods in the package should be as the following survival long data format:
+
+xxxxxxx
 
 ### Citation
 To cite `onestep_surv` in publications, please use:
