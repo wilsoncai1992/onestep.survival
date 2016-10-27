@@ -8,6 +8,11 @@ The `onestep.survival` R package is a tool for .
 
 ### Installation
 
+TO DO: Depend on a modified version of `survtmle`.
+```R
+devtools::install_github('wilsoncai1992/survtmle')
+```
+
 To install the CRAN release version of `onestep.survival`: 
 
 ```R
