@@ -13,7 +13,7 @@
 
 # Output files from R CMD check
 /*.Rcheck/
-/.Rd2pdf*/
+.Rd2pdf*/
 
 # RStudio files
 .Rproj.user/
