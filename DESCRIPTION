@@ -14,6 +14,6 @@ Suggests:
 License:
     xxx
 URL:
-    https://github.com/wilsoncai1992/surv_tmle
+    https://github.com/wilsoncai1992/onestep_survival
 Encoding: UTF-8
 LazyData: true
