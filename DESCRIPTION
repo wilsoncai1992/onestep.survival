@@ -21,7 +21,7 @@ Imports:
     plyr
 Suggests:
     testthat
-License: xxx
+License: GPL-2
 URL: https://github.com/wilsoncai1992/onestep_survival
 Encoding: UTF-8
 LazyData: true
