@@ -4,7 +4,7 @@ Version: 0.1.0
 Authors@R: as.person(c(
     "Wilson Cai <wcai@berkeley.edu> [aut, cre]",
     "Mark J. van der Laan <laan@berkeley.edu> [aut]"))
-Description: What the package does (one paragraph).
+Description: Estimate counterfactual survival curve under static or dynamic interventions on treatment (exposure), while at the same time adjust for *measured* counfounding. Targeted Maximum Likelihood Estimate (TMLE) approach is employed to create a doubly robust and semi-parametrically efficient estimator. Machine Learning algorithms (SuperLearner) are implemented to all stages of the estimation.
 Depends:
     R (>= 3.0.0),
     SuperLearner,
