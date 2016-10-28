@@ -1,4 +1,4 @@
-#' compute I{T.tilde >= t}
+#' compute \eqn{I\{T.tilde >= t\}}
 #'
 #' loop over t.vec
 #'
@@ -15,7 +15,9 @@ create.Y.t.vec <- function(Time, t.vec) {
 	return(out.vec)
 }
 
-#' compute I{T.tilde >= t, Delta = 1}, loop over t.vec
+#' compute \eqn{I\{T.tilde >= t, Delta = 1\}}
+#'
+#' loop over t.vec
 #'
 #' @param Time length n vector of failure time
 #' @param Delta length n vector of censoring indicator

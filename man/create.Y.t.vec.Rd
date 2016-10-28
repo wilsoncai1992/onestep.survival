@@ -2,7 +2,7 @@
 % Please edit documentation in R/create.Y.t.vec_censor.R
 \name{create.Y.t.vec}
 \alias{create.Y.t.vec}
-\title{compute I{T.tilde >= t}}
+\title{compute \eqn{I\{T.tilde >= t\}}}
 \usage{
 create.Y.t.vec(Time, t.vec)
 }

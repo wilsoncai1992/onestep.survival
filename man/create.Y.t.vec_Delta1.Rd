@@ -2,7 +2,7 @@
 % Please edit documentation in R/create.Y.t.vec_censor.R
 \name{create.Y.t.vec_Delta1}
 \alias{create.Y.t.vec_Delta1}
-\title{compute I{T.tilde >= t, Delta = 1}, loop over t.vec}
+\title{compute \eqn{I\{T.tilde >= t, Delta = 1\}}}
 \usage{
 create.Y.t.vec_Delta1(Time, Delta, t.vec)
 }
@@ -17,7 +17,7 @@ create.Y.t.vec_Delta1(Time, Delta, t.vec)
 a binary vector, of length = t.vec
 }
 \description{
-compute I{T.tilde >= t, Delta = 1}, loop over t.vec
+loop over t.vec
 }
 \examples{
 # TO DO
