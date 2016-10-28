@@ -1,11 +1,11 @@
-#' Title
+#' Plot the survival curve estimator
 #'
-#' @param onestepfit
-#' @param col
-#' @param lty
-#' @param add
+#' @param onestepfit object returned by surv.one.step or surv.one.step.complete
+#' @param col line color
+#' @param lty line type
+#' @param add whether to add to existing plot
 #'
-#' @return
+#' @return NA
 #' @export
 #'
 #' @examples

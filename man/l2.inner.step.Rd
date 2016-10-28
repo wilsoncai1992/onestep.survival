@@ -2,7 +2,7 @@
 % Please edit documentation in R/eval.l2.step.R
 \name{l2.inner.step}
 \alias{l2.inner.step}
-\title{compute l2 inner product of two step functions: f and g}
+\title{compute l2 inner product of two step functions}
 \usage{
 l2.inner.step(f.step, g.step, T.grid)
 }
@@ -17,7 +17,7 @@ l2.inner.step(f.step, g.step, T.grid)
 scalar
 }
 \description{
-compute l2 inner product of two step functions: f and g
+f and g
 }
 \examples{
 # TO DO

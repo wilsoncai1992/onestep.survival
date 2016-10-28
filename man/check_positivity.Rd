@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_positivity.R
 \name{check_positivity}
 \alias{check_positivity}
-\title{Check whether positivity assumption is violated in data}
+\title{Check positivity assumption of input data}
 \usage{
 check_positivity(dat, posit_level = 0.05)
 }
@@ -11,7 +11,11 @@ check_positivity(dat, posit_level = 0.05)
 
 \item{posit_level}{level of positivity to detect from data}
 }
+\value{
+raise warning when positivity violated
+}
 \description{
+Check whether positivity assumption is violated in data
 censored data NOT supported
 }
 

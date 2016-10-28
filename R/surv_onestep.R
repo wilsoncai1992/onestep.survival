@@ -1,4 +1,4 @@
-#' compute one-step survival curve estimator for complete data
+#' One-step TMLE estimator for survival curve (No censoring)
 #'
 #' options to ADD:
 #' SL.formula: the covariates to include in SL

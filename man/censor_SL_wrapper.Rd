@@ -2,7 +2,7 @@
 % Please edit documentation in R/censor_SL_wrapper.R
 \name{censor_SL_wrapper}
 \alias{censor_SL_wrapper}
-\title{wrapper for David's censoring SL function}
+\title{wrapper for censoring regression SuperLearner}
 \usage{
 censor_SL_wrapper(dat, T.uniq, Delta.SL.Lib = c("SL.mean", "SL.glm", "SL.gam",
   "SL.earth"))
@@ -19,7 +19,7 @@ h.hat.t matrix, nrow = n.sample, ncol = length(T.uniq);
 each row is the predicted conditional hazard h(T=t | T>=t, A, W) for that subject
 }
 \description{
-wrapper for David's censoring SL function
+wrapper for censoring regression SuperLearner
 }
 \examples{
 # TO DO

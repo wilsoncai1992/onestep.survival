@@ -1,7 +1,7 @@
-#' Title
+#' Iterative TMLE for survival curve at specific time point
 #'
-#' @param dat
-#' @param tk
+#' @param dat data.frame with columns T, A, C, W. All columns with character "W" will be treated as baseline covariates.
+#' @param tk time point to compute survival probability
 #'
 #' @return
 #' @export

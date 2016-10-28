@@ -2,7 +2,7 @@
 % Please edit documentation in R/compute.step.cdf_vec.R
 \name{compute.step.cdf}
 \alias{compute.step.cdf}
-\title{compute cdf of step function}
+\title{compute cumulative distribution function of a step-shaped (empirical) density}
 \usage{
 \method{compute}{step.cdf}(pdf.mat, t.vec, start = -Inf)
 }
@@ -15,10 +15,10 @@ if input matrix = compute cdf for several step-function pdf with same jump point
 \item{start}{if -Inf = from left to right; if Inf = from right to left.}
 }
 \value{
-vector
+vector of cdf value
 }
 \description{
-compute cdf of step function
+compute cumulative distribution function of a step-shaped (empirical) density
 }
 \examples{
 # TO DO

@@ -1,11 +1,12 @@
-#' Check whether positivity assumption is violated in data
+#' Check positivity assumption of input data
 #'
+#' Check whether positivity assumption is violated in data
 #' censored data NOT supported
 #'
 #' @param dat input data.frame
 #' @param posit_level level of positivity to detect from data
 #'
-#' @return
+#' @return raise warning when positivity violated
 #' @export
 #'
 #' @examples

@@ -2,14 +2,16 @@
 % Please edit documentation in R/survtmle_survival_single_t.R
 \name{survtmle_survival_single_t}
 \alias{survtmle_survival_single_t}
-\title{Title}
+\title{Iterative TMLE for survival curve at specific time point}
 \usage{
 survtmle_survival_single_t(dat, tk)
 }
 \arguments{
-\item{tk}{}
+\item{dat}{data.frame with columns T, A, C, W. All columns with character "W" will be treated as baseline covariates.}
+
+\item{tk}{time point to compute survival probability}
 }
 \description{
-Title
+Iterative TMLE for survival curve at specific time point
 }
 

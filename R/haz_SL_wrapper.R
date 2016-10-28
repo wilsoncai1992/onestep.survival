@@ -1,9 +1,9 @@
-#' wrapper for David's hazard SL function
+#' wrapper for conditonal hazard regression SuperLearner
 #'
-#' use T, A, W data format as input
+#' use T, A, C, W data format as input
 #'
-#' @param dat data.frame, with col: T, A, W, C
-#' @param T.uniq the unique time points of failure
+#' @param dat data.frame, with col: T, A, C, W
+#' @param T.uniq vector of unique event times
 #' @param ht.SL.Lib library for SuperLearner
 #'
 #' @return h.hat.t matrix, nrow = n.sample, ncol = length(T.uniq);

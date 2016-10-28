@@ -2,16 +2,26 @@
 % Please edit documentation in R/compute_update.R
 \name{compute.update}
 \alias{compute.update}
-\title{Title}
+\title{Perform one-step TMLE update of survival curve}
 \usage{
 \method{compute}{update}(D1.t.func.prev, Pn.D1.func.prev, dat, T.uniq, W_names,
   dW)
 }
 \arguments{
-\item{dW}{}
+\item{D1.t.func.prev}{n*p matrix of previous influence curve}
+
+\item{Pn.D1.func.prev}{p vector of previous mean influence curve}
+
+\item{dat}{input data.frame}
+
+\item{T.uniq}{grid of unique event times}
+
+\item{W_names}{vector of the names of baseline covariates}
+
+\item{dW}{dynamic intervention}
 }
 \description{
-Title
+Perform one-step TMLE update of survival curve
 }
 \examples{
 # TO DO

@@ -1,7 +1,9 @@
-#' compute I{T.tilde >= t}, loop over t.vec
+#' compute I{T.tilde >= t}
 #'
-#' @param Time
-#' @param t.vec
+#' loop over t.vec
+#'
+#' @param Time length n vector of failure time
+#' @param t.vec t value of interest
 #'
 #' @return a binary vector, of length = t.vec
 #' @export
@@ -15,9 +17,9 @@ create.Y.t.vec <- function(Time, t.vec) {
 
 #' compute I{T.tilde >= t, Delta = 1}, loop over t.vec
 #'
-#' @param Time
-#' @param Delta
-#' @param t.vec
+#' @param Time length n vector of failure time
+#' @param Delta length n vector of censoring indicator
+#' @param t.vec t value of interest
 #'
 #' @return a binary vector, of length = t.vec
 #' @export

@@ -1,4 +1,4 @@
-#' Title
+#' generate data.frame to be used in survtmle package
 #'
 #' @param dat a data.frame with columns named:
 #'         id = unique subject id
@@ -88,9 +88,7 @@ makeDataList <- function(dat, J, nZ, Z, t0, bounds=NULL){
   return(dataList)
 }
 
-# output:
-
-#' Title
+#' Conditional Hazard estimation in survtmle package
 #'
 #' @param dataList output of makeDataList
 #' @param J same as above

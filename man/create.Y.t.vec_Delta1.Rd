@@ -7,7 +7,11 @@
 create.Y.t.vec_Delta1(Time, Delta, t.vec)
 }
 \arguments{
-\item{t.vec}{}
+\item{Time}{length n vector of failure time}
+
+\item{Delta}{length n vector of censoring indicator}
+
+\item{t.vec}{t value of interest}
 }
 \value{
 a binary vector, of length = t.vec

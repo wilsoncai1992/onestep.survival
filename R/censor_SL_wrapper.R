@@ -1,4 +1,4 @@
-#' wrapper for David's censoring SL function
+#' wrapper for censoring regression SuperLearner
 #'
 #' @param dat data.frame, with col: T, A, W, Delta
 #' @param T.uniq the unique time points of failure

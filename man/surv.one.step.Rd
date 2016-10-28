@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_onestep_censor.R
 \name{surv.one.step}
 \alias{surv.one.step}
-\title{compute one-step survival curve estimator}
+\title{One-step TMLE estimator for survival curve}
 \usage{
 surv.one.step(dat, dW, g.lib = c("SL.glm", "SL.step", "SL.glm.interaction"),
   Delta.SL.Lib = c("SL.mean", "SL.glm", "SL.gam", "SL.earth"),

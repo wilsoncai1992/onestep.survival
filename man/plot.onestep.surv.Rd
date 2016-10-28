@@ -2,15 +2,24 @@
 % Please edit documentation in R/plot.one.step.surv.R
 \name{plot.onestep.surv}
 \alias{plot.onestep.surv}
-\title{Title}
+\title{Plot the survival curve estimator}
 \usage{
 \method{plot}{onestep.surv}(onestepfit, col = "green", lty = 1,
   add = FALSE)
 }
 \arguments{
-\item{add}{}
+\item{onestepfit}{object returned by surv.one.step or surv.one.step.complete}
+
+\item{col}{line color}
+
+\item{lty}{line type}
+
+\item{add}{whether to add to existing plot}
+}
+\value{
+NA
 }
 \description{
-Title
+Plot the survival curve estimator
 }
 

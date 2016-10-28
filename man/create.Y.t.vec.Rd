@@ -2,18 +2,20 @@
 % Please edit documentation in R/create.Y.t.vec_censor.R
 \name{create.Y.t.vec}
 \alias{create.Y.t.vec}
-\title{compute I{T.tilde >= t}, loop over t.vec}
+\title{compute I{T.tilde >= t}}
 \usage{
 create.Y.t.vec(Time, t.vec)
 }
 \arguments{
-\item{t.vec}{}
+\item{Time}{length n vector of failure time}
+
+\item{t.vec}{t value of interest}
 }
 \value{
 a binary vector, of length = t.vec
 }
 \description{
-compute I{T.tilde >= t}, loop over t.vec
+loop over t.vec
 }
 \examples{
 # TO DO

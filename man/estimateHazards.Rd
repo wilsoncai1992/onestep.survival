@@ -2,7 +2,7 @@
 % Please edit documentation in R/David_hazard.R
 \name{estimateHazards}
 \alias{estimateHazards}
-\title{Title}
+\title{Conditional Hazard estimation in survtmle package}
 \usage{
 estimateHazards(dataList, J, verbose, strata = NULL, adjustVars,
   SLlibrary.event, glmFormula.event, superLearnerSummary, bounds)
@@ -37,7 +37,7 @@ QjHaz for all j \in J. Ignore the PseudoHaz variables -- they're used when there
 multiple event types; if there's only one type of event they'll == Haz values anyway
 }
 \description{
-Title
+Conditional Hazard estimation in survtmle package
 }
 \examples{
 # TO DO

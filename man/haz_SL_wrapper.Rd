@@ -2,15 +2,15 @@
 % Please edit documentation in R/haz_SL_wrapper.R
 \name{haz_SL_wrapper}
 \alias{haz_SL_wrapper}
-\title{wrapper for David's hazard SL function}
+\title{wrapper for conditonal hazard regression SuperLearner}
 \usage{
 haz_SL_wrapper(dat, T.uniq, ht.SL.Lib = c("SL.mean", "SL.glm", "SL.gam",
   "SL.earth"))
 }
 \arguments{
-\item{dat}{data.frame, with col: T, A, W, C}
+\item{dat}{data.frame, with col: T, A, C, W}
 
-\item{T.uniq}{the unique time points of failure}
+\item{T.uniq}{vector of unique event times}
 
 \item{ht.SL.Lib}{library for SuperLearner}
 }
@@ -19,7 +19,7 @@ h.hat.t matrix, nrow = n.sample, ncol = length(T.uniq);
 		each row is the predicted conditional hazard h(T=t | T>=t, A, W) for that subject
 }
 \description{
-use T, A, W data format as input
+use T, A, C, W data format as input
 }
 \examples{
 # TO DO

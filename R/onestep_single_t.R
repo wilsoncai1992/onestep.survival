@@ -1,15 +1,15 @@
-#' Title
+#' One-step TMLE estimator for survival at specific time point
 #'
-#' @param dat
-#' @param tk
-#' @param dW
-#' @param SL.trt
-#' @param SL.ctime
-#' @param SL.ftime
-#' @param maxIter
-#' @param epsilon_step
-#' @param tol
-#' @param verbose
+#' @param dat data.frame with columns T, A, C, W. All columns with character "W" will be treated as baseline covariates.
+#' @param tk time point to compute survival probability
+#' @param dW binary input vector specifying dynamic treatment (as a function output of W)
+#' @param SL.trt SuperLearner library for fitting treatment regression
+#' @param SL.ctime SuperLearner library for fitting censoring regression
+#' @param SL.ftime SuperLearner library for fitting conditional hazard regression
+#' @param maxIter maximal number of recursion for one-step
+#' @param epsilon_step step size for one-step recursion
+#' @param tol tolerance for optimization
+#' @param verbose to print log-likelihood value during optimzation
 #'
 #' @return
 #' @export

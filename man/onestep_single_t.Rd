@@ -2,7 +2,7 @@
 % Please edit documentation in R/onestep_single_t.R
 \name{onestep_single_t}
 \alias{onestep_single_t}
-\title{Title}
+\title{One-step TMLE estimator for survival at specific time point}
 \usage{
 onestep_single_t(dat, tk, dW = 1, SL.trt = c("SL.glm", "SL.step",
   "SL.earth"), SL.ctime = c("SL.glm", "SL.step", "SL.earth"),
@@ -10,10 +10,28 @@ onestep_single_t(dat, tk, dW = 1, SL.trt = c("SL.glm", "SL.step",
   epsilon_step = 0.001, tol = 1/nrow(dat), verbose = FALSE)
 }
 \arguments{
-\item{verbose}{}
+\item{dat}{data.frame with columns T, A, C, W. All columns with character "W" will be treated as baseline covariates.}
+
+\item{tk}{time point to compute survival probability}
+
+\item{dW}{binary input vector specifying dynamic treatment (as a function output of W)}
+
+\item{SL.trt}{SuperLearner library for fitting treatment regression}
+
+\item{SL.ctime}{SuperLearner library for fitting censoring regression}
+
+\item{SL.ftime}{SuperLearner library for fitting conditional hazard regression}
+
+\item{maxIter}{maximal number of recursion for one-step}
+
+\item{epsilon_step}{step size for one-step recursion}
+
+\item{tol}{tolerance for optimization}
+
+\item{verbose}{to print log-likelihood value during optimzation}
 }
 \description{
-Title
+One-step TMLE estimator for survival at specific time point
 }
 \examples{
 # TO DO

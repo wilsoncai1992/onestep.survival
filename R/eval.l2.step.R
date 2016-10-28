@@ -1,4 +1,6 @@
-#' compute l2 inner product of two step functions: f and g
+#' compute l2 inner product of two step functions
+#'
+#' f and g
 #'
 #' @param f.step two step-function pdf with shared jump points; can be matrix input: nrow = # of different step-function pdf, ncol = length(T.grid)
 #' @param g.step two step-function pdf with shared jump points; can be matrix input: nrow = # of different step-function pdf, ncol = length(T.grid)

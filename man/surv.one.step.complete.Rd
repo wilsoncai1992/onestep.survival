@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_onestep.R
 \name{surv.one.step.complete}
 \alias{surv.one.step.complete}
-\title{compute one-step survival curve estimator for complete data}
+\title{One-step TMLE estimator for survival curve (No censoring)}
 \usage{
 surv.one.step.complete(dat, dW, g.lib = c("SL.glm", "SL.step",
   "SL.glm.interaction"), ht.SL.Lib = c("SL.mean", "SL.glm", "SL.gam",

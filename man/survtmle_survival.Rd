@@ -2,14 +2,17 @@
 % Please edit documentation in R/survtmle_survival.R
 \name{survtmle_survival}
 \alias{survtmle_survival}
-\title{Title}
+\title{Iterative TMLE for survival curve}
 \usage{
 survtmle_survival(dat)
 }
 \arguments{
-\item{dat}{}
+\item{dat}{data.frame with columns T, A, W. All columns with character "W" will be treated as baseline covariates.}
+}
+\value{
+data.frame, where the first column is survival probability, second column is the time point of the survival curve
 }
 \description{
-Title
+Iterative TMLE for survival curve
 }
 

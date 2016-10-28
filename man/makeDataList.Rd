@@ -2,7 +2,7 @@
 % Please edit documentation in R/David_hazard.R
 \name{makeDataList}
 \alias{makeDataList}
-\title{Title}
+\title{generate data.frame to be used in survtmle package}
 \usage{
 makeDataList(dat, J, nZ, Z, t0, bounds = NULL)
 }
@@ -25,7 +25,7 @@ W = other columns for baseline variables}
 \item{bounds}{just leave NULL}
 }
 \description{
-Title
+generate data.frame to be used in survtmle package
 }
 \examples{
 # TO DO

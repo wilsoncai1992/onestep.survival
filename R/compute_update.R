@@ -1,11 +1,11 @@
-#' Title
+#' Perform one-step TMLE update of survival curve
 #'
-#' @param D1.t.func.prev
-#' @param Pn.D1.func.prev
-#' @param dat
-#' @param T.uniq
-#' @param W_names
-#' @param dW
+#' @param D1.t.func.prev n*p matrix of previous influence curve
+#' @param Pn.D1.func.prev p vector of previous mean influence curve
+#' @param dat input data.frame
+#' @param T.uniq grid of unique event times
+#' @param W_names vector of the names of baseline covariates
+#' @param dW dynamic intervention
 #'
 #' @return
 #' @export

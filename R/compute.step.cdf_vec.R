@@ -1,11 +1,11 @@
-#' compute cdf of step function
+#' compute cumulative distribution function of a step-shaped (empirical) density
 #'
 #' @param pdf.mat if input vector = compute cdf for a step-function pdf;
 #'              if input matrix = compute cdf for several step-function pdf with same jump points
 #' @param t.vec unique jump points of step function
 #' @param start if -Inf = from left to right; if Inf = from right to left.
 #'
-#' @return vector
+#' @return vector of cdf value
 #' @export
 #'
 #' @examples
