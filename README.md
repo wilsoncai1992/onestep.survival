@@ -63,7 +63,7 @@ The data input of all methods in the package should be an `R` `data.frame` in th
 
 ## Citation
 To cite `onestep.survival` in publications, please use:
-> Cai W, van der Laan MJ (2016). *onestep.survival: One-step TMLE for time-to-event outcomes.* R package version 0.1.
+> Cai W, van der Laan MJ (2016). *One-step TMLE for time-to-event outcomes.* Working paper.
 
 ## Funding
 
