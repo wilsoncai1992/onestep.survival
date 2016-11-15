@@ -44,9 +44,9 @@ surv.one.step <- function(dat,
 	# ================================================================================================
 	# remove the rows with death time = 0, i.e. who die immediately
 	# remove the time = T.max, where the censoring probability becomes too large (G(t_|A,W) -> 0) # 10-23
-	dW <- dW[dat$T != 0 & dat$T != max(dat$T)]
-	dat <- dat[dat$T != 0 & dat$T != max(dat$T),]
-
+	to_keep <- dat$T != 0 & dat$T != max(dat$T)
+    dW <- dW[to_keep]
+	dat <- dat[to_keep,]
 
 	n.data <- nrow(dat)
 
@@ -173,6 +173,7 @@ surv.one.step <- function(dat,
 	# ================================================================================================
 	# update
 	# ================================================================================================
+	message('targeting')
 	stopping.criteria <- sqrt(l2.inner.step(Pn.D1.t, Pn.D1.t, T.uniq))/length(T.uniq) # 10-17
 
 	update.tensor <- matrix(0, nrow = n.data, ncol = length(T.uniq))
@@ -181,7 +182,7 @@ surv.one.step <- function(dat,
 
 	# while ((stopping.criteria >= tol) & (iter.count <= max.iter)) { # ORGINAL
     while ((stopping.criteria >= tol) & (iter.count <= max.iter) & ((stopping.prev - stopping.criteria) >= max(-tol, -1e-5))) { #WILSON: TEMPORARY
-		print(stopping.criteria)
+		if(verbose) print(stopping.criteria)
 		# =============================================================================
 		# update the qn
 		# ------------------------------------------------------------------------
@@ -304,9 +305,10 @@ surv.one.step <- function(dat,
 	# return the mean of those with observed A == dW
 	Psi.hat <- colMeans(Qn.current)
 	# --------------------------------------------------
-	variables <- list(T.uniq)
-	params <- list(stopping.criteria, epsilon.step, iter.count, max.iter)
-	initial_fit <- list(h.hat.t, Qn.A1.t, qn.A1.t)
+	variables <- list(T.uniq = T.uniq, Qn.current = Qn.current, D1.A1.t = D1.A1.t, D1.t = D1.t)
+	params <- list(stopping.criteria = stopping.criteria, epsilon.step = epsilon.step, iter.count = iter.count, max.iter = max.iter, dat = dat, dW = dW)
+	initial_fit <- list(h.hat.t = h.hat.t, Qn.A1.t = Qn.A1.t, qn.A1.t = qn.A1.t)
+	# --------------------------------------------------
 	to.return <- list(Psi.hat = Psi.hat,
 	                  T.uniq = T.uniq,
 	                  params = params,
