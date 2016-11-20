@@ -21,8 +21,14 @@ check_positivity <- function(dat, posit_level = 0.05) {
 		table_out <- table(data.frame(cbind( W,A)))
 	}
 	table_out <- table_out/rowSums(table_out)
+	# there are strata where there is NO observation
+	table_out <- table_out[complete.cases(table_out),]
+	# table_out[is.na(table_out)] <- 0
 
 	posit_violate_by_strata <- rowSums(table_out < posit_level)
+	# some strata have absolutely no entry
+	# posit_violate_by_strata[posit_violate_by_strata == 2] <- 1
+
 	if(any(as.logical(posit_violate_by_strata))){
 		warning(paste('Positivity assumption violated', sum(posit_violate_by_strata), 'out of', length(posit_violate_by_strata), 'stratas!'))
 	}
