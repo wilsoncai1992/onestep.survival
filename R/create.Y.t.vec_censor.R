@@ -11,8 +11,8 @@
 #' @examples
 #' # TO DO
 create.Y.t.vec <- function(Time, t.vec) {
-	out.vec <- (Time >= t.vec) + 0
-	return(out.vec)
+    out.vec <- (Time >= t.vec) + 0
+    return(out.vec)
 }
 
 #' compute \eqn{I\{T.tilde >= t, Delta = 1\}}

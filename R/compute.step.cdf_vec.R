@@ -11,44 +11,44 @@
 #' @examples
 #' # TO DO
 compute.step.cdf <- function(pdf.mat, t.vec, start = -Inf) {
-		interval.size <- diff(t.vec)
-		# interval.size <- c(0, interval.size)
-		interval.size <- c(interval.size, 0) # 09-07
+        interval.size <- diff(t.vec)
+        # interval.size <- c(0, interval.size)
+        interval.size <- c(interval.size, 0) # 09-07
 
-		# compute the mass
-		if(is.matrix(pdf.mat)){
-			# if input with multi-sample
-			mass.by.interval <- sweep(pdf.mat,MARGIN=2, interval.size, `*`)
-			# multiplies the interval length to each row of the y-values
-			# the result is a matrix, each row is a single pdf, and entries are the mass
+        # compute the mass
+        if(is.matrix(pdf.mat)){
+            # if input with multi-sample
+            mass.by.interval <- sweep(pdf.mat,MARGIN=2, interval.size, `*`)
+            # multiplies the interval length to each row of the y-values
+            # the result is a matrix, each row is a single pdf, and entries are the mass
 
-		}else{
-			# if input with one-sample
-			mass.by.interval <- pdf.mat * interval.size
-		}
+        }else{
+            # if input with one-sample
+            mass.by.interval <- pdf.mat * interval.size
+        }
 
 
-	if(is.infinite(start) & (start < 0)){
-		# ======================================================================
-		# start from -Inf
-		if(is.matrix(pdf.mat)){
-			# if input with multi-sample
-			cdf.by.interval <- t(apply(mass.by.interval, 1, cumsum)) # cumsum of mass for each row, from left to right
-		}else{
-			# if input with one-sample
-			cdf.by.interval <- cumsum(mass.by.interval)
-		}
-	}else{
-		# ======================================================================
-		# start from +Inf
-		if(is.matrix(pdf.mat)){
-			# if input with multi-sample
-			cdf.by.interval <- t(apply(mass.by.interval, 1, function(obj) rev(cumsum(rev(obj))) ) )
-		}else{
-			# if input with one-sample
-			cdf.by.interval <- rev(cumsum(rev(mass.by.interval)))
-		}
-	}
-		# ======================================================================
-	return(cdf.by.interval)
+    if(is.infinite(start) & (start < 0)){
+        # ======================================================================
+        # start from -Inf
+        if(is.matrix(pdf.mat)){
+            # if input with multi-sample
+            cdf.by.interval <- t(apply(mass.by.interval, 1, cumsum)) # cumsum of mass for each row, from left to right
+        }else{
+            # if input with one-sample
+            cdf.by.interval <- cumsum(mass.by.interval)
+        }
+    }else{
+        # ======================================================================
+        # start from +Inf
+        if(is.matrix(pdf.mat)){
+            # if input with multi-sample
+            cdf.by.interval <- t(apply(mass.by.interval, 1, function(obj) rev(cumsum(rev(obj))) ) )
+        }else{
+            # if input with one-sample
+            cdf.by.interval <- rev(cumsum(rev(mass.by.interval)))
+        }
+    }
+        # ======================================================================
+    return(cdf.by.interval)
 }
