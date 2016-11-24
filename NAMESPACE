@@ -3,6 +3,7 @@
 S3method(compute,step.cdf)
 S3method(compute,update)
 S3method(plot,onestep.surv)
+S3method(plot,survtmle_survival)
 export(censor_SL_wrapper)
 export(check_positivity)
 export(create.Y.t.vec)

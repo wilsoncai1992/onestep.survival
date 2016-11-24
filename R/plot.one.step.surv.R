@@ -9,11 +9,7 @@
 #' @export
 #'
 #' @examples
-plot.onestep.surv <- function(onestepfit, col = 'green', lty = 1, add = FALSE) {
-	if (add){
-		lines(onestepfit$Psi.hat ~ onestepfit$T.uniq, col = col, lty = lty)
-	}else{
-		plot(onestepfit$Psi.hat ~ onestepfit$T.uniq, col = col, type = 'l', lty = lty)
-	}
-
+plot.onestep.surv <- function(onestepfit, col = 'green', add = FALSE, ...) {
+    step_curve <- stepfun(x = onestepfit$T.uniq, y = c(1, onestepfit$Psi.hat))
+    curve(step_curve, from = 0, to = max(onestepfit$T.uniq), add = add, col = col, ...)
 }

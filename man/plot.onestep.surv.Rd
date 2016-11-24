@@ -4,17 +4,16 @@
 \alias{plot.onestep.surv}
 \title{Plot the survival curve estimator}
 \usage{
-\method{plot}{onestep.surv}(onestepfit, col = "green", lty = 1,
-  add = FALSE)
+\method{plot}{onestep.surv}(onestepfit, col = "green", add = FALSE, ...)
 }
 \arguments{
 \item{onestepfit}{object returned by surv.one.step or surv.one.step.complete}
 
 \item{col}{line color}
 
-\item{lty}{line type}
-
 \item{add}{whether to add to existing plot}
+
+\item{lty}{line type}
 }
 \value{
 NA
