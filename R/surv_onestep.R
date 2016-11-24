@@ -40,8 +40,8 @@ surv.one.step.complete <- function(dat,
 	# ================================================================================================
 
 	# remove the rows with death time = 0, i.e. who die immediately
-	dW <- dW[dat$T != 0]
-	dat <- dat[dat$T != 0,]
+	dW <- dW[dat$T.tilde != 0]
+	dat <- dat[dat$T.tilde != 0,]
 
 	n.data <- nrow(dat)
 
@@ -64,7 +64,7 @@ surv.one.step.complete <- function(dat,
 	# conditional hazard (by SL)
 	# ================================================================================================
 	message('estimating conditional hazard')
-	T.uniq <- sort(unique(dat$T))
+	T.uniq <- sort(unique(dat$T.tilde))
 	T.max <- max(T.uniq)
 
 
@@ -111,7 +111,7 @@ surv.one.step.complete <- function(dat,
 	D1.A1.t <- matrix(0, nrow = n.data, ncol = length(T.uniq))
 
 	for (it.n in 1:n.data) {
-		Y.vec <- create.Y.t.vec(Time = dat$T[it.n], t.vec = T.uniq)
+		Y.vec <- create.Y.t.vec(Time = dat$T.tilde[it.n], t.vec = T.uniq)
 		temp <- Y.vec - Qn.A1.t[it.n,]
 		D1 <- temp / g.fitted[it.n] * I.A.dW[it.n]
 		D1.A1 <- temp / g.fitted[it.n] # also update the samples without A = 1
@@ -190,7 +190,7 @@ surv.one.step.complete <- function(dat,
 		D1.t <- matrix(0, nrow = n.data, ncol = length(T.uniq))
 		D1.A1.t <- matrix(0, nrow = n.data, ncol = length(T.uniq))
 		for (it.n in 1:n.data) {
-			Y.vec <- create.Y.t.vec(Time = dat$T[it.n], t.vec = T.uniq)
+			Y.vec <- create.Y.t.vec(Time = dat$T.tilde[it.n], t.vec = T.uniq)
 			temp <- Y.vec - Qn.current[it.n,]
 			D1 <- temp / g.fitted[it.n] * I.A.dW[it.n]
 			D1.A1 <- temp / g.fitted[it.n] # also update the samples without A = 1

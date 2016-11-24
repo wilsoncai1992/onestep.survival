@@ -44,7 +44,7 @@ surv.one.step <- function(dat,
 	# ================================================================================================
 	# remove the rows with death time = 0, i.e. who die immediately
 	# remove the time = T.max, where the censoring probability becomes too large (G(t_|A,W) -> 0) # 10-23
-	to_keep <- dat$T != 0 & dat$T != max(dat$T)
+	to_keep <- dat$T.tilde != 0 & dat$T.tilde != max(dat$T.tilde)
     dW <- dW[to_keep]
 	dat <- dat[to_keep,]
 
@@ -69,7 +69,7 @@ surv.one.step <- function(dat,
 	# conditional hazard (by SL)
 	# ================================================================================================
 	message('estimating conditional hazard')
-	T.uniq <- sort(unique(dat$T))
+	T.uniq <- sort(unique(dat$T.tilde))
 	T.max <- max(T.uniq)
 
 
@@ -133,8 +133,8 @@ surv.one.step <- function(dat,
 
 	    for (it.n in 1:n.data) {
 
-	        t_Delta1.vec <- create.Y.t.vec_Delta1(Time = dat$T[it.n], Delta = dat$delta[it.n], t.vec = 1:max(T.uniq))
-	        t.vec <- create.Y.t.vec(Time = dat$T[it.n], t.vec = 1:max(T.uniq))
+	        t_Delta1.vec <- create.Y.t.vec_Delta1(Time = dat$T.tilde[it.n], Delta = dat$delta[it.n], t.vec = 1:max(T.uniq))
+	        t.vec <- create.Y.t.vec(Time = dat$T.tilde[it.n], t.vec = 1:max(T.uniq))
 	        alpha2 <- (t_Delta1.vec - t.vec * h.hat.t_full[it.n,])
 
 	        alpha1 <- -I.A.dW[it.n]/g.fitted[it.n]/Gn.A1.t_full[it.n,]/Qn.A1.t_full[it.n,]
@@ -175,6 +175,7 @@ surv.one.step <- function(dat,
 	# ================================================================================================
 	message('targeting')
 	stopping.criteria <- sqrt(l2.inner.step(Pn.D1.t, Pn.D1.t, T.uniq))/length(T.uniq) # 10-17
+	if(verbose) print(stopping.criteria)
 
 	update.tensor <- matrix(0, nrow = n.data, ncol = length(T.uniq))
 	iter.count <- 0
