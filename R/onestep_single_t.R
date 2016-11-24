@@ -44,7 +44,7 @@ onestep_single_t <- function(dat, tk, dW = 1,
         dat_david <- dat_david[,keeps]
         dat_david <- plyr::rename(dat_david, c('T.tilde' = 'ftime'))
     }else if('T' %in% toupper(colnames(dat_david))){
-        # if no t.tilde, rename to T.tilde
+        warning('no t.tilde, rename T to T.tilde')
         dat_david <- plyr::rename(dat_david, c('T' = 'ftime'))
     }else{
         # if there are no T
@@ -57,8 +57,7 @@ onestep_single_t <- function(dat, tk, dW = 1,
         # if there are already id in the dataset
         dat_david <- plyr::rename(dat_david, c('ID' = 'id'))
     }else{
-        # if no id exist
-        # create 'id' on our own
+        warning('no id exist, create \'id\' on our own')
         dat_david$id <- 1:nrow(dat_david)
     }
 
@@ -66,8 +65,7 @@ onestep_single_t <- function(dat, tk, dW = 1,
     if ('delta' %in% colnames(dat_david)) {
         dat_david <- plyr::rename(dat_david, c('delta' = 'ftype'))
     }else{
-        # no censoring in the dataset
-        # censoring to be all 1
+        warning('no delta in the dataset, set censoring to be all 1')
         dat_david$ftype <- 1
     }
 
@@ -209,10 +207,15 @@ onestep_single_t <- function(dat, tk, dW = 1,
             # if changes sign or converges, then stop update
             epsilon_step2 <- 0
         }
-        if (all(abs(meanIC) < tol)) {
+        # if (all(abs(meanIC) < tol)) {
+        if (abs(meanIC)[2] < tol) {
             # all IC become zero mean
             message('Success Converge!')
             break()
+        }
+        if (epsilon_step1 == 0 & epsilon_step2 == 0){
+                message('Success Converge! with epsilon_step too large.')
+                break()
         }
     }
 
