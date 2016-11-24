@@ -9,26 +9,30 @@
 #' @examples
 #' @import survtmle
 #' @import Matrix
-survtmle_survival_single_t <- function(dat, tk) {
-    T.uniq <- unique(sort(dat$T))
+survtmle_survival_single_t <- function(dat, tk,
+                                       dW = rep(1, nrow(dat))
+                                       ) {
+    T.uniq <- unique(sort(dat$T.tilde))
     # remove the first and last time points when algorithm fail
     T.uniq <- T.uniq[-1]
     T.uniq <- T.uniq[-length(T.uniq)]
 
     # create function inputs
     # remove failure time = 0
-    ftime <- dat$T[dat$T!=0]
+    ftime <- dat$T.tilde[dat$T.tilde!=0]
     if ('delta' %in% colnames(dat)) {
-        ftype <- dat$delta[dat$T!=0]
+        ftype <- dat$delta[dat$T.tilde!=0]
     }else{
         # no censoring in the dataset
         # censoring to be all 1
         ftype <- rep(1, length(ftime))
     }
-    trt <- dat$A[dat$T!=0]
+    # since survtmle can only accept counterfactual A = 1
+    # we set trt = I{A = dW}, so that A' = dW
+    trt <- (dat$A[dat$T.tilde!=0] == dW) + 0
     # get all W_ covariates
     W_name <- grep(names(dat), pattern = 'W', value = TRUE)
-    adjustVars <- as.data.frame(dat[dat$T!=0,W_name])
+    adjustVars <- as.data.frame(dat[dat$T.tilde!=0,W_name])
 
 
     # ====================================================================================
