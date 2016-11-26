@@ -248,13 +248,16 @@ onestep_single_t <- function(dat, tk, dW = rep(1, nrow(dat)),
     row.names(var) <- colnames(var) <- rowNames
 
     # output static interventions
-    if (all(dW == 1)) {
-        est <- 1 - est['1 1',]
-        var <- var['1 1', '1 1']
-    }else if (all(dW == 0)) {
-        est <- 1 - est['0 1',]
-        var <- var['0 1', '0 1']
-    }
+    est <- 1 - est['1 1',]
+    var <- var['1 1', '1 1']
+
+    # if (all(dW == 1)) {
+    #     est <- 1 - est['1 1',]
+    #     var <- var['1 1', '1 1']
+    # }else if (all(dW == 0)) {
+    #     est <- 1 - est['0 1',]
+    #     var <- var['0 1', '0 1']
+    # }
 
     return(list(est = est, var = var, meanIC = meanIC, ic = infCurves))
 }

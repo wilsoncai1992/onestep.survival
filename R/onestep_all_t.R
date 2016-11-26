@@ -256,13 +256,16 @@ onestep_single_all_t <- function(dat, dW = 1,
         row.names(var) <- colnames(var) <- rowNames
 
         # output static interventions
-        if (all(dW == 1)) {
-            est <- 1 - est['1 1',]
-            var <- var['1 1', '1 1']
-        }else if (all(dW == 0)) {
-            est <- 1 - est['0 1',]
-            var <- var['0 1', '0 1']
-        }
+        est <- 1 - est['1 1',]
+        var <- var['1 1', '1 1']
+
+        # if (all(dW == 1)) {
+        #     est <- 1 - est['1 1',]
+        #     var <- var['1 1', '1 1']
+        # }else if (all(dW == 0)) {
+        #     est <- 1 - est['0 1',]
+        #     var <- var['0 1', '0 1']
+        # }
         onestep_out_all[[tk_count]] <- list(est = est, var = var, meanIC = meanIC, ic = infCurves)
     }
 
