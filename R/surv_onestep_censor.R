@@ -59,6 +59,16 @@ surv.one.step <- function(dat,
     if (length(dW) != n.data) {
         stop('The length of input dW is not same as the sample size!')
     }
+
+    if(all(dW == 0)) {
+        dat$A <- 1 - dat$A # when dW is all zero
+        dW <- 1 - dW
+    }else if(all(dW == 1)){
+
+    }else{
+        stop('not implemented!')
+    }
+
     # ================================================================================================
     # estimate g(A|W)
     # ================================================================================================
@@ -204,10 +214,14 @@ surv.one.step <- function(dat,
         qn.current <- qn.A1.t * exp(epsilon.step * intergrand)
         qn.current_full <- qn.A1.t_full * exp(epsilon.step * replicate(T.max, intergrand[,1])) #10-23
 
-        # normalize the updated qn
+        # For density sum > 1: normalize the updated qn
         norm.factor <- compute.step.cdf(pdf.mat = qn.current, t.vec = T.uniq, start = Inf)[,1] #09-06
         qn.current[norm.factor > 1,] <- qn.current[norm.factor > 1,] / norm.factor[norm.factor > 1] #09-06
         qn.current_full[norm.factor > 1,] <- qn.current_full[norm.factor > 1,] / norm.factor[norm.factor > 1] #10-23
+
+        # For density sum > 1: truncate the density outside sum = 1 to be zero
+        # i.e. flat cdf beyond sum to 1
+
 
         # if some qn becomes all zero, prevent NA exisitence
         qn.current[is.na(qn.current)] <- 0

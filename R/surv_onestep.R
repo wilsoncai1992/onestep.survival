@@ -54,6 +54,16 @@ surv.one.step.complete <- function(dat,
     if (length(dW) != n.data) {
         stop('The length of input dW is not same as the sample size!')
     }
+
+    if(all(dW == 0)) {
+        dat$A <- 1 - dat$A # when dW is all zero
+        dW <- 1 - dW
+    }else if(all(dW == 1)){
+
+    }else{
+        stop('not implemented!')
+    }
+
     # ================================================================================================
     # estimate g(A|W)
     # ================================================================================================

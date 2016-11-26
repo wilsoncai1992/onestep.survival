@@ -18,7 +18,7 @@
 #' # TO DO
 #' @importFrom plyr rename
 #' @import survtmle
-onestep_single_t <- function(dat, tk, dW = 1,
+onestep_single_t <- function(dat, tk, dW = rep(1, nrow(dat)),
                              SL.trt = c("SL.glm", "SL.step", "SL.earth"),
                              SL.ctime = c("SL.glm", "SL.step", "SL.earth"),
                              SL.ftime = c("SL.glm", "SL.step", "SL.earth"),
@@ -52,6 +52,15 @@ onestep_single_t <- function(dat, tk, dW = 1,
     }
 
     dat_david <- plyr::rename(dat_david, c('A' = 'trt'))
+
+    if(all(dW == 0)) {
+        dat_david$trt <- 1 - dat_david$trt # when dW is all zero
+    }else if(all(dW == 1)){
+
+    }else{
+        stop('not implemented!')
+    }
+
 
     if ('ID' %in% toupper(colnames(dat_david))) {
         # if there are already id in the dataset
@@ -153,9 +162,6 @@ onestep_single_t <- function(dat, tk, dW = 1,
         -mean(Y * log(QAW) + (1-Y) * log(1 - QAW))
     }
 
-    if (any(dW == 0)) {
-        stop('not implemented dynamic intervention!')
-    }
 
     # if the derivative of the loss the positive, change the tergeting direction
     epsilon_step1 <- epsilon_step2 <- epsilon_step

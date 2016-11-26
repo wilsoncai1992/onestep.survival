@@ -27,9 +27,18 @@ survtmle_survival_single_t <- function(dat, tk,
         # censoring to be all 1
         ftype <- rep(1, length(ftime))
     }
-    # since survtmle can only accept counterfactual A = 1
+    # WRONG: since survtmle can only accept counterfactual A = 1
     # we set trt = I{A = dW}, so that A' = dW
-    trt <- (dat$A[dat$T.tilde!=0] == dW) + 0
+    # trt <- (dat$A[dat$T.tilde!=0] == dW) + 0
+    if(all(dW == 0)) {
+        trt <- 1 - dat$A[dat$T.tilde!=0] # when dW is all zero, flip observed A
+    }else if(all(dW == 1)){
+
+    }else{
+        stop('not implemented!')
+    }
+
+
     # get all W_ covariates
     W_name <- grep(names(dat), pattern = 'W', value = TRUE)
     adjustVars <- as.data.frame(dat[dat$T.tilde!=0,W_name])

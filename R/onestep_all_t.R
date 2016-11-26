@@ -53,6 +53,15 @@ onestep_single_all_t <- function(dat, dW = 1,
 
     dat_david <- plyr::rename(dat_david, c('A' = 'trt'))
 
+    if(all(dW == 0)) {
+        dat_david$trt <- 1 - dat_david$trt # when dW is all zero
+    }else if(all(dW == 1)){
+
+    }else{
+        stop('not implemented!')
+    }
+
+
     if ('ID' %in% toupper(colnames(dat_david))) {
         # if there are already id in the dataset
         dat_david <- plyr::rename(dat_david, c('ID' = 'id'))
@@ -158,10 +167,6 @@ onestep_single_all_t <- function(dat, dW = 1,
         # ====================================================================================================
         calcLoss <- function(Y, QAW){
             -mean(Y * log(QAW) + (1-Y) * log(1 - QAW))
-        }
-
-        if (any(dW == 0)) {
-            stop('not implemented dynamic intervention!')
         }
 
         # if the derivative of the loss the positive, change the tergeting direction
