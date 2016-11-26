@@ -215,13 +215,17 @@ surv.one.step <- function(dat,
         qn.current_full <- qn.A1.t_full * exp(epsilon.step * replicate(T.max, intergrand[,1])) #10-23
 
         # For density sum > 1: normalize the updated qn
-        norm.factor <- compute.step.cdf(pdf.mat = qn.current, t.vec = T.uniq, start = Inf)[,1] #09-06
-        qn.current[norm.factor > 1,] <- qn.current[norm.factor > 1,] / norm.factor[norm.factor > 1] #09-06
-        qn.current_full[norm.factor > 1,] <- qn.current_full[norm.factor > 1,] / norm.factor[norm.factor > 1] #10-23
+        # norm.factor <- compute.step.cdf(pdf.mat = qn.current, t.vec = T.uniq, start = Inf)[,1] #09-06
+        # qn.current[norm.factor > 1,] <- qn.current[norm.factor > 1,] / norm.factor[norm.factor > 1] #09-06
+        # qn.current_full[norm.factor > 1,] <- qn.current_full[norm.factor > 1,] / norm.factor[norm.factor > 1] #10-23
 
+        # 11-26
         # For density sum > 1: truncate the density outside sum = 1 to be zero
         # i.e. flat cdf beyond sum to 1
-
+        cdf_per_subj <- compute.step.cdf(pdf.mat = qn.current, t.vec = T.uniq, start = -Inf)
+        qn.current[cdf_per_subj > 1] <- 0
+        cdf_per_subj <- compute.step.cdf(pdf.mat = qn.current_full, t.vec = 1:max(T.uniq), start = -Inf)
+        qn.current_full[cdf_per_subj > 1] <- 0
 
         # if some qn becomes all zero, prevent NA exisitence
         qn.current[is.na(qn.current)] <- 0

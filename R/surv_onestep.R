@@ -168,8 +168,14 @@ surv.one.step.complete <- function(dat,
         qn.current <- qn.A1.t * exp(epsilon.step * intergrand)
 
         # normalize the updated qn
-        norm.factor <- compute.step.cdf(pdf.mat = qn.current, t.vec = T.uniq, start = Inf)[,1] #09-06
-        qn.current[norm.factor > 1,] <- qn.current[norm.factor > 1,] / norm.factor[norm.factor > 1] #09-06
+        # norm.factor <- compute.step.cdf(pdf.mat = qn.current, t.vec = T.uniq, start = Inf)[,1] #09-06
+        # qn.current[norm.factor > 1,] <- qn.current[norm.factor > 1,] / norm.factor[norm.factor > 1] #09-06
+
+        # 11-26
+        # For density sum > 1: truncate the density outside sum = 1 to be zero
+        # i.e. flat cdf beyond sum to 1
+        cdf_per_subj <- compute.step.cdf(pdf.mat = qn.current, t.vec = T.uniq, start = -Inf)
+        qn.current[cdf_per_subj > 1] <- 0
 
         # if some qn becomes all zero, prevent NA exisitence
         qn.current[is.na(qn.current)] <- 0
