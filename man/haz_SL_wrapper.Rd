@@ -16,7 +16,7 @@ haz_SL_wrapper(dat, T.uniq, ht.SL.Lib = c("SL.mean", "SL.glm", "SL.gam",
 }
 \value{
 h.hat.t matrix, nrow = n.sample, ncol = length(T.uniq);
-		each row is the predicted conditional hazard h(T=t | T>=t, A, W) for that subject
+         each row is the predicted conditional hazard h(T=t | T>=t, A, W) for that subject
 }
 \description{
 use T, A, C, W data format as input

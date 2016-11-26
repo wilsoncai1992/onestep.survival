@@ -4,7 +4,7 @@
 \alias{survtmle_survival_single_t}
 \title{Iterative TMLE for survival curve at specific time point}
 \usage{
-survtmle_survival_single_t(dat, tk)
+survtmle_survival_single_t(dat, tk, dW = rep(1, nrow(dat)))
 }
 \arguments{
 \item{dat}{data.frame with columns T, A, C, W. All columns with character "W" will be treated as baseline covariates.}
