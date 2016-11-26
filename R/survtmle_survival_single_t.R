@@ -33,7 +33,7 @@ survtmle_survival_single_t <- function(dat, tk,
     if(all(dW == 0)) {
         trt <- 1 - dat$A[dat$T.tilde!=0] # when dW is all zero, flip observed A
     }else if(all(dW == 1)){
-
+        trt <- dat$A[dat$T.tilde!=0]
     }else{
         stop('not implemented!')
     }
