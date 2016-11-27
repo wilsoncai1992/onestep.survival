@@ -18,7 +18,7 @@
 #' # TO DO
 #' @importFrom plyr rename
 #' @import survtmle
-onestep_single_all_t <- function(dat, dW = 1,
+onestep_single_all_t <- function(dat, dW = rep(1, nrow(dat)),
                              SL.trt = c("SL.glm", "SL.step", "SL.earth"),
                              SL.ctime = c("SL.glm", "SL.step", "SL.earth"),
                              SL.ftime = c("SL.glm", "SL.step", "SL.earth"),
