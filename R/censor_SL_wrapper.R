@@ -18,7 +18,6 @@ censor_SL_wrapper <- function(dat,
                               T.uniq,
                               Delta.SL.Lib = c("SL.mean","SL.glm", "SL.gam", "SL.earth")
                               ) {
-    # ----------------------------------------------------------------------------------------------------
     # transform original data into SL-friendly format
     dat_david <- dat
 
@@ -39,24 +38,17 @@ censor_SL_wrapper <- function(dat,
     }
 
     # remove all other useless columns
-    baseline_name <- grep('W', colnames(dat_david), value = TRUE)
+    baseline_name <- grep('W', colnames(dat), value = TRUE)
     keeps <- c("id", baseline_name, 'ftime', 'ftype', 'trt')
     dat_david <- dat_david[,keeps]
-    # ====================================================================================================
-    # remove failure time = 0
-    # ====================================================================================================
-    dat_david <- dat_david[dat_david$ftime != 0,]
-    n.data <- nrow(dat_david)
 
-    # ====================================================================================================
-    # prepare
-    # ====================================================================================================
     T.uniq <- unique(sort(dat_david$ftime))
     T.max <- max(T.uniq)
 
     adjustVars <- dat_david[,baseline_name]
-
-
+    # ====================================================================================================
+    # dataList
+    # ====================================================================================================
     datalist <- survtmle::makeDataList(dat = dat_david,
                                        J = 1, # one kind of failure
                                        ntrt = 2, # one kind of treatment

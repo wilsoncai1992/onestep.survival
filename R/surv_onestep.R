@@ -22,7 +22,6 @@
 #'
 #' @examples
 #' @import dplyr
-#' @importFrom plyr rename
 #' @import survtmle
 #' @import abind
 #' @import SuperLearner
@@ -38,22 +37,14 @@ surv.one.step.complete <- function(dat,
     # ================================================================================================
     # preparation
     # ================================================================================================
+    after_check <- check_and_preprocess(dat = dat, dW = dW)
+    dat <- after_check$dat
+    dW <- after_check$dW
+    n.data <- after_check$n.data
+    W_names <- after_check$W_names
 
-    # remove the rows with death time = 0, i.e. who die immediately
-    dW <- dW[dat$T.tilde != 0]
-    dat <- dat[dat$T.tilde != 0,]
-
-    n.data <- nrow(dat)
-
-    W_names <- grep('W', colnames(dat), value = TRUE)
     W <- dat[,W_names]
     W <- as.data.frame(W)
-    # ================================================================================================
-    # input validation
-    # ================================================================================================
-    if (length(dW) != n.data) {
-        stop('The length of input dW is not same as the sample size!')
-    }
 
     if(all(dW == 0)) {
         dat$A <- 1 - dat$A # when dW is all zero
@@ -63,7 +54,6 @@ surv.one.step.complete <- function(dat,
     }else{
         stop('not implemented!')
     }
-
     # ================================================================================================
     # estimate g(A|W)
     # ================================================================================================

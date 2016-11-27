@@ -16,7 +16,7 @@
 #'
 #' @examples
 #' # TO DO
-#' @importFrom plyr rename
+#' @import dplyr
 #' @import survtmle
 onestep_single_all_t <- function(dat, dW = rep(1, nrow(dat)),
                              SL.trt = c("SL.glm", "SL.step", "SL.earth"),
@@ -29,29 +29,19 @@ onestep_single_all_t <- function(dat, dW = rep(1, nrow(dat)),
     # ====================================================================================================
     # input validation
     # ====================================================================================================
-
-
-
+    after_check <- check_and_preprocess(dat = dat, dW = dW)
+    dat <- after_check$dat
+    dW <- after_check$dW
+    n.data <- after_check$n.data
+    W_names <- after_check$W_names
     # ====================================================================================================
     # preparation: make data in survtmle format (dat_david)
     # ====================================================================================================
     # transform original data into SL-friendly format
     dat_david <- dat
 
-    if ('T.TILDE' %in% toupper(colnames(dat_david))) {
-        # if there is t.tilde in variable, remove any T
-        keeps <- setdiff(colnames(dat_david), 'T')
-        dat_david <- dat_david[,keeps]
-        dat_david <- plyr::rename(dat_david, c('T.tilde' = 'ftime'))
-    }else if('T' %in% toupper(colnames(dat_david))){
-        warning('no t.tilde, rename T to T.tilde')
-        dat_david <- plyr::rename(dat_david, c('T' = 'ftime'))
-    }else{
-        # if there are no T
-        stop("There should be T variable!")
-    }
-
-    dat_david <- plyr::rename(dat_david, c('A' = 'trt'))
+    dat_david <- rename(dat_david, ftime = T.tilde)
+    dat_david <- rename(dat_david, trt = A)
 
     if(all(dW == 0)) {
         dat_david$trt <- 1 - dat_david$trt # when dW is all zero
@@ -61,34 +51,21 @@ onestep_single_all_t <- function(dat, dW = rep(1, nrow(dat)),
         stop('not implemented!')
     }
 
-
     if ('ID' %in% toupper(colnames(dat_david))) {
         # if there are already id in the dataset
-        dat_david <- plyr::rename(dat_david, c('ID' = 'id'))
+        dat_david <- rename(dat_david, id = ID)
     }else{
         warning('no id exist, create \'id\' on our own')
         dat_david$id <- 1:nrow(dat_david)
     }
 
     # censoring
-    if ('delta' %in% colnames(dat_david)) {
-        dat_david <- plyr::rename(dat_david, c('delta' = 'ftype'))
-    }else{
-        warning('no delta in the dataset, set censoring to be all 1')
-        dat_david$ftype <- 1
-    }
+    dat_david <- rename(dat_david, ftype = delta)
 
     # remove all other useless columns
-    baseline_name <- grep('W', colnames(dat_david), value = TRUE)
+    baseline_name <- W_names
     keeps <- c("id", baseline_name, 'ftime', 'ftype', 'trt')
     dat_david <- dat_david[,keeps]
-
-    # ====================================================================================================
-    # remove failure time = 0
-    # ====================================================================================================
-    dat_david <- dat_david[dat_david$ftime != 0,]
-    n.data <- nrow(dat_david)
-
     # ====================================================================================================
     # prepare
     # ====================================================================================================

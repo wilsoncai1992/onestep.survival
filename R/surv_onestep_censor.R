@@ -25,7 +25,6 @@
 #' @examples
 #' # TODO
 #' @import dplyr
-#' @importFrom plyr rename
 #' @import survtmle
 #' @import abind
 #' @import SuperLearner
@@ -42,24 +41,16 @@ surv.one.step <- function(dat,
     # ================================================================================================
     # preparation
     # ================================================================================================
-    # remove the rows with death time = 0, i.e. who die immediately
-    # remove the time = T.max, where the censoring probability becomes too large (G(t_|A,W) -> 0) # 10-23
-    to_keep <- dat$T.tilde != 0 & dat$T.tilde != max(dat$T.tilde)
-    dW <- dW[to_keep]
-    dat <- dat[to_keep,]
+    after_check <- check_and_preprocess(dat = dat, dW = dW)
+    dat <- after_check$dat
+    dW <- after_check$dW
+    n.data <- after_check$n.data
+    W_names <- after_check$W_names
 
-    n.data <- nrow(dat)
-
-    W_names <- grep('W', colnames(dat), value = TRUE)
     W <- dat[,W_names]
     W <- as.data.frame(W)
-    # ================================================================================================
-    # input validation
-    # ================================================================================================
-    if (length(dW) != n.data) {
-        stop('The length of input dW is not same as the sample size!')
-    }
 
+    # dW check
     if(all(dW == 0)) {
         dat$A <- 1 - dat$A # when dW is all zero
         dW <- 1 - dW
@@ -68,7 +59,6 @@ surv.one.step <- function(dat,
     }else{
         stop('not implemented!')
     }
-
     # ================================================================================================
     # estimate g(A|W)
     # ================================================================================================

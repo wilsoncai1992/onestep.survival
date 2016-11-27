@@ -18,7 +18,6 @@ haz_SL_wrapper <- function(dat,
                            T.uniq,
                            ht.SL.Lib = c("SL.mean","SL.glm", "SL.gam", "SL.earth")
                            ) {
-    # ----------------------------------------------------------------------------------------------------
     # transform original data into SL-friendly format
     dat_david <- dat
 
@@ -34,17 +33,18 @@ haz_SL_wrapper <- function(dat,
     }
 
     # censoring
-    if ('delta' %in% colnames(dat_david)) {
-        dat_david <- rename(dat_david, Delta.J = delta)
-    }
+    dat_david <- rename(dat_david, Delta.J = delta)
 
     # remove all other useless columns
-    baseline_name <- grep('W', colnames(dat_david), value = TRUE)
+    baseline_name <- grep('W', colnames(dat), value = TRUE)
     keeps <- c("id", baseline_name, 'T.tilde', 'Delta.J', 'Z')
     dat_david <- dat_david[,keeps]
 
     # first fit SL on the max time point
     T.it <- max(T.uniq)
+    # =======================================================================================
+    # dataList
+    # =======================================================================================
     datalist <- makeDataList(dat = dat_david,
                              J = 1, # one kind of failure
                              nZ = 2, # one kind of treatment
