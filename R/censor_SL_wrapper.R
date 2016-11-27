@@ -11,8 +11,8 @@
 #' @examples
 #' # TO DO
 #' @import SuperLearner
-#' @importFrom plyr rename
 #' @import survtmle
+#' @import dplyr
 #' @import tidyr
 censor_SL_wrapper <- function(dat,
                               T.uniq,
@@ -22,23 +22,11 @@ censor_SL_wrapper <- function(dat,
     # transform original data into SL-friendly format
     dat_david <- dat
 
-    if ('T.TILDE' %in% toupper(colnames(dat_david))) {
-        # if there is t.tilde in variable, remove any T
-        keeps <- setdiff(colnames(dat_david), 'T')
-        dat_david <- dat_david[,keeps]
-        dat_david <- plyr::rename(dat_david, c('T.tilde' = 'ftime'))
-    }else if('T' %in% toupper(colnames(dat_david))){
-        # if no t.tilde, rename to T.tilde
-        dat_david <- plyr::rename(dat_david, c('T' = 'ftime'))
-    }else{
-        # if there are no T
-        stop("There should be T variable!")
-    }
-    dat_david <- plyr::rename(dat_david, c('A' = 'trt'))
+    dat_david <- rename(dat_david, trt = A)
 
     if ('ID' %in% toupper(colnames(dat_david))) {
         # if there are already id in the dataset
-        dat_david <- plyr::rename(dat_david, c('ID' = 'id'))
+        dat_david <- rename(dat_david, id = ID)
     }else{
         # if no id exist
         # create 'id' on our own
@@ -47,19 +35,13 @@ censor_SL_wrapper <- function(dat,
 
     # censoring
     if ('delta' %in% colnames(dat_david)) {
-        dat_david <- plyr::rename(dat_david, c('delta' = 'ftype'))
-    }else{
-        # no censoring in the dataset
-        # censoring to be all 1
-        dat_david$ftype <- 1
+        dat_david <- rename(dat_david, ftype = delta)
     }
-
 
     # remove all other useless columns
     baseline_name <- grep('W', colnames(dat_david), value = TRUE)
     keeps <- c("id", baseline_name, 'ftime', 'ftype', 'trt')
     dat_david <- dat_david[,keeps]
-
     # ====================================================================================================
     # remove failure time = 0
     # ====================================================================================================

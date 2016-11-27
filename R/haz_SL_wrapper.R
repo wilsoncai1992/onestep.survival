@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' # TO DO
-#' @importFrom plyr rename
+#' @import dplyr
 #' @import tidyr
 haz_SL_wrapper <- function(dat,
                            T.uniq,
@@ -22,23 +22,11 @@ haz_SL_wrapper <- function(dat,
     # transform original data into SL-friendly format
     dat_david <- dat
 
-    if ('T.TILDE' %in% toupper(colnames(dat_david))) {
-        # if there is t.tilde in variable, remove any T
-        keeps <- setdiff(colnames(dat_david), 'T.Tilde')
-        dat_david <- dat_david[,keeps]
-    }else if('T' %in% toupper(colnames(dat_david))){
-        # if no t.tilde, rename to T.tilde
-        dat_david <- plyr::rename(dat_david, c('T' = 'T.tilde'))
-    }else{
-        # if there are no T
-        stop("There should be T variable!")
-    }
-
-    dat_david <- plyr::rename(dat_david, c('A' = 'Z'))
+    dat_david <- rename(dat_david, Z = A)
 
     if ('ID' %in% toupper(colnames(dat_david))) {
         # if there are already id in the dataset
-        dat_david <- plyr::rename(dat_david, c('ID' = 'id'))
+        dat_david <- rename(dat_david, id = ID)
     }else{
         # if no id exist
         # create 'id' on our own
@@ -47,11 +35,7 @@ haz_SL_wrapper <- function(dat,
 
     # censoring
     if ('delta' %in% colnames(dat_david)) {
-        dat_david <- plyr::rename(dat_david, c('delta' = 'Delta.J'))
-    }else{
-        # no censoring in the dataset
-        # censoring to be all 1
-        dat_david$Delta.J <- 1
+        dat_david <- rename(dat_david, Delta.J = delta)
     }
 
     # remove all other useless columns
