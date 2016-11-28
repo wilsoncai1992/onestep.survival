@@ -1,6 +1,6 @@
 Package: onestep.survival
 Title: One-step TMLE for survival analysis
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: as.person(c(
     "Wilson Cai <wcai@berkeley.edu> [aut, cre]",
     "Mark J. van der Laan <laan@berkeley.edu> [aut]"))
@@ -13,12 +13,9 @@ Imports:
     tmle,
     foreach,
     survtmle,
-    SuperLearner,
-    Matrix,
     tidyr,
     abind,
-    dplyr,
-    plyr
+    dplyr
 Suggests:
     testthat
 License: GPL-2

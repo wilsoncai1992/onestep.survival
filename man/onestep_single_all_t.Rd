@@ -4,8 +4,8 @@
 \alias{onestep_single_all_t}
 \title{One-step TMLE estimator for survival at specific time point; Loop over all times}
 \usage{
-onestep_single_all_t(dat, dW = 1, SL.trt = c("SL.glm", "SL.step",
-  "SL.earth"), SL.ctime = c("SL.glm", "SL.step", "SL.earth"),
+onestep_single_all_t(dat, dW = rep(1, nrow(dat)), SL.trt = c("SL.glm",
+  "SL.step", "SL.earth"), SL.ctime = c("SL.glm", "SL.step", "SL.earth"),
   SL.ftime = c("SL.glm", "SL.step", "SL.earth"), maxIter = 300,
   epsilon_step = 0.001, tol = 1/nrow(dat), verbose = FALSE)
 }

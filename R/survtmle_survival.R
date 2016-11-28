@@ -12,6 +12,9 @@ survtmle_survival <- function(dat, dW = rep(1, nrow(dat)),
                               SL.ftime = c("SL.glm","SL.mean","SL.step", "SL.earth"),
                               SL.ctime = c("SL.glm","SL.mean"),
                               SL.trt = c("SL.glm","SL.mean","SL.step", "SL.earth")) {
+    # ===================================================================================
+    # preparation
+    # ===================================================================================
     after_check <- check_and_preprocess(dat = dat, dW = dW)
     dat <- after_check$dat
     dW <- after_check$dW
@@ -32,7 +35,7 @@ survtmle_survival <- function(dat, dW = rep(1, nrow(dat)),
         stop('not implemented!')
     }
 
-    adjustVars <- as.data.frame(dat[,W_name])
+    adjustVars <- as.data.frame(dat[,W_names])
     # ====================================================================================
     # compute values for all time points
     # ====================================================================================
@@ -41,9 +44,10 @@ survtmle_survival <- function(dat, dW = rep(1, nrow(dat)),
                              SL.ftime = SL.ftime,
                              SL.ctime = SL.ctime,
                              SL.trt = SL.trt,
-                             # glm.ftime = paste(c('trt', W_name), collapse = ' + '),
-                             # glm.trt = paste(W_name, collapse = ' + '),
-                             method="hazard", returnModels = TRUE)
+                             # glm.ftime = paste(c('trt', W_names), collapse = ' + '),
+                             # glm.trt = paste(W_names, collapse = ' + '),
+                             method="hazard", returnModels = TRUE,
+                             verbose = FALSE)
     # 7.8min
     allTimes <- timepoints(object = fit_max_time, times = T.uniq, returnModels = FALSE)
 

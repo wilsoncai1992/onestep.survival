@@ -1,11 +1,10 @@
-##
-## @brief      validate and preprocess the data
-##
-## @param      dat   The dat
-## @param      dW    The d w
-##
-## @return
-##
+#' Validate and preprocess the data
+#'
+#' @param      dat   The dat
+#' @param      dW    The d w
+#'
+#' @return
+#' @export
 check_and_preprocess <- function(dat, dW) {
 
     to_keep <- (dat$T.tilde != 0) & (dat$T.tilde != max(dat$T.tilde))

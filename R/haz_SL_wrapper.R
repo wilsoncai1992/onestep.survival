@@ -36,7 +36,7 @@ haz_SL_wrapper <- function(dat,
     dat_david <- rename(dat_david, Delta.J = delta)
 
     # remove all other useless columns
-    baseline_name <- grep('W', colnames(dat), value = TRUE)
+    baseline_name <- grep('W', colnames(dat_david), value = TRUE)
     keeps <- c("id", baseline_name, 'T.tilde', 'Delta.J', 'Z')
     dat_david <- dat_david[,keeps]
 

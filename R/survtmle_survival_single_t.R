@@ -32,7 +32,7 @@ survtmle_survival_single_t <- function(dat, tk,
         stop('not implemented!')
     }
 
-    adjustVars <- as.data.frame(dat[,W_name])
+    adjustVars <- as.data.frame(dat[,W_names])
     # ====================================================================================
     # compute values for all time points
     # ====================================================================================
@@ -41,9 +41,10 @@ survtmle_survival_single_t <- function(dat, tk,
                              SL.ftime = c("SL.glm","SL.mean","SL.step", "SL.earth"),
                              SL.ctime = c("SL.glm","SL.mean"),
                              SL.trt = c("SL.glm","SL.mean","SL.step", "SL.earth"),
-                             # glm.ftime = paste(c('trt', W_name), collapse = ' + '),
-                             # glm.trt = paste(W_name, collapse = ' + '),
-                             method="hazard", returnModels = TRUE)
+                             # glm.ftime = paste(c('trt', W_names), collapse = ' + '),
+                             # glm.trt = paste(W_names, collapse = ' + '),
+                             method="hazard", returnModels = TRUE,
+                             verbose = FALSE)
     # 7.8min
     # allTimes <- timepoints(object = fit_max_time, times = T.uniq, returnModels = FALSE)
     est <- 1 - fit_max_time$est['1 1',]

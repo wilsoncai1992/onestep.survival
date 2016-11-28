@@ -21,6 +21,7 @@ censor_SL_wrapper <- function(dat,
     # transform original data into SL-friendly format
     dat_david <- dat
 
+    dat_david <- rename(dat_david, ftime = T.tilde)
     dat_david <- rename(dat_david, trt = A)
 
     if ('ID' %in% toupper(colnames(dat_david))) {
@@ -38,9 +39,9 @@ censor_SL_wrapper <- function(dat,
     }
 
     # remove all other useless columns
-    baseline_name <- grep('W', colnames(dat), value = TRUE)
+    baseline_name <- grep('W', colnames(dat_david), value = TRUE)
     keeps <- c("id", baseline_name, 'ftime', 'ftype', 'trt')
-    dat_david <- dat_david[,keeps]
+    dat_david <- dat_david[, keeps]
 
     T.uniq <- unique(sort(dat_david$ftime))
     T.max <- max(T.uniq)

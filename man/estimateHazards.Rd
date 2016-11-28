@@ -33,7 +33,7 @@ added column for the initial data.frame
 QjHaz <- result, for each subject, h_t from time 0 to T-1; organized in T_i rows
 QjPseudoHaz <-
 returns list of length = length(dataList) with added columns name QjPseudoHaz and
-QjHaz for all j \in J. Ignore the PseudoHaz variables -- they're used when there are
+QjHaz for all j in J. Ignore the PseudoHaz variables -- they're used when there are
 multiple event types; if there's only one type of event they'll == Haz values anyway
 }
 \description{
