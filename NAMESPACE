@@ -2,8 +2,8 @@
 
 S3method(compute,step.cdf)
 S3method(compute,update)
-S3method(plot,onestep.surv)
-S3method(plot,survtmle_survival)
+S3method(plot,surv_onestep)
+S3method(plot,surv_survtmle)
 export(censor_SL_wrapper)
 export(check_and_preprocess)
 export(check_positivity)

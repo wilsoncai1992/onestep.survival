@@ -323,7 +323,7 @@ surv.one.step <- function(dat,
                       params = params,
                       variables = variables,
                       initial_fit = initial_fit)
-    class(to.return) <- 'onestep.surv'
+    class(to.return) <- 'surv_onestep'
     return(to.return)
 
 }

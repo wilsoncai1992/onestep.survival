@@ -4,12 +4,14 @@
 \alias{check_and_preprocess}
 \title{Validate and preprocess the data}
 \usage{
-check_and_preprocess(dat, dW)
+check_and_preprocess(dat, dW, nbin = 4)
 }
 \arguments{
 \item{dat}{The dat}
 
 \item{dW}{The d w}
+
+\item{nbin}{how many levels should continuous W's be binned into}
 }
 \description{
 Validate and preprocess the data

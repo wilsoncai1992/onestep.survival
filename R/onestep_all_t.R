@@ -248,7 +248,7 @@ onestep_single_all_t <- function(dat, dW = rep(1, nrow(dat)),
 
     s_vec <- sapply(onestep_out_all, function(x) x$est)
     survival_df <- data.frame(s_vec, T.uniq)
-    class(survival_df) <- 'survtmle_survival'
+    class(survival_df) <- 'surv_survtmle'
 
     return(list(survival_df = survival_df, onestep_out_all = onestep_out_all))
 }

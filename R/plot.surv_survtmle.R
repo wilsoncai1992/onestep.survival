@@ -8,7 +8,7 @@
 #' @export
 #'
 #' @examples
-plot.survtmle_survival <- function(obj, add = FALSE, ...) {
+plot.surv_survtmle <- function(obj, add = FALSE, ...) {
     step_curve <- stepfun(x = obj$T.uniq, y = c(1, obj$s_vec))
     curve(step_curve, from = 0, to = max(obj$T.uniq), add = add, ...)
 }

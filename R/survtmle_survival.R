@@ -54,6 +54,6 @@ survtmle_survival <- function(dat, dW = rep(1, nrow(dat)),
     s_vec <- sapply(allTimes, function(x) 1 - x$est['1 1',])
     survival_df <- data.frame(s_vec, T.uniq)
 
-    class(survival_df) <- 'survtmle_survival'
+    class(survival_df) <- 'surv_survtmle'
     return(survival_df)
 }
