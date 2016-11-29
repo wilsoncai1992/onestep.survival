@@ -2,6 +2,10 @@
 #'
 #' @param dat data.frame with columns T, A, C, W. All columns with character "W" will be treated as baseline covariates.
 #' @param tk time point to compute survival probability
+#' @param dW 
+#' @param SL.ftime 
+#' @param SL.ctime 
+#' @param SL.trt 
 #'
 #' @return
 #' @export
@@ -10,7 +14,10 @@
 #' @import survtmle
 #' @import Matrix
 survtmle_survival_single_t <- function(dat, tk,
-                                       dW = rep(1, nrow(dat))
+                                       dW = rep(1, nrow(dat)),
+                                       SL.ftime = c("SL.glm","SL.mean","SL.step", "SL.earth"),
+                                       SL.ctime = c("SL.glm","SL.mean"),
+                                       SL.trt = c("SL.glm","SL.mean","SL.step", "SL.earth")
                                        ) {
     after_check <- check_and_preprocess(dat = dat, dW = dW)
     dat <- after_check$dat
@@ -38,9 +45,9 @@ survtmle_survival_single_t <- function(dat, tk,
     # ====================================================================================
     fit_max_time <- survtmle(ftime = ftime, ftype = ftype, trt = trt, adjustVars = adjustVars,
                              t0 = tk,
-                             SL.ftime = c("SL.glm","SL.mean","SL.step", "SL.earth"),
-                             SL.ctime = c("SL.glm","SL.mean"),
-                             SL.trt = c("SL.glm","SL.mean","SL.step", "SL.earth"),
+                             SL.ftime = SL.ftime,
+                             SL.ctime = SL.ctime,
+                             SL.trt = SL.trt,
                              # glm.ftime = paste(c('trt', W_names), collapse = ' + '),
                              # glm.trt = paste(W_names, collapse = ' + '),
                              method="hazard", returnModels = TRUE,

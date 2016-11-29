@@ -4,9 +4,9 @@
 \alias{surv.one.step}
 \title{One-step TMLE estimator for survival curve}
 \usage{
-surv.one.step(dat, dW, g.lib = c("SL.glm", "SL.step", "SL.glm.interaction"),
-  Delta.SL.Lib = c("SL.mean", "SL.glm", "SL.gam", "SL.earth"),
-  ht.SL.Lib = c("SL.mean", "SL.glm", "SL.gam", "SL.earth"), ...,
+surv.one.step(dat, dW, g.SL.Lib = c("SL.glm", "SL.step",
+  "SL.glm.interaction"), Delta.SL.Lib = c("SL.mean", "SL.glm", "SL.gam",
+  "SL.earth"), ht.SL.Lib = c("SL.mean", "SL.glm", "SL.gam", "SL.earth"), ...,
   epsilon.step = 1e-05, max.iter = 1000, tol = 1/nrow(dat),
   verbose = TRUE)
 }
@@ -15,7 +15,7 @@ surv.one.step(dat, dW, g.lib = c("SL.glm", "SL.step", "SL.glm.interaction"),
 
 \item{dW}{binary input vector specifying dynamic treatment (as a function output of W)}
 
-\item{g.lib}{SuperLearner library for fitting treatment regression}
+\item{g.SL.Lib}{SuperLearner library for fitting treatment regression}
 
 \item{Delta.SL.Lib}{SuperLearner library for fitting censoring regression}
 

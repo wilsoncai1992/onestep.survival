@@ -7,7 +7,7 @@
 #' @return
 #' @export
 #'
-check_and_preprocess <- function(dat, dW, nbin = 4) {
+check_and_preprocess <- function(dat, dW, nbin = 5) {
     to_keep <- (dat$T.tilde != 0) & (dat$T.tilde != max(dat$T.tilde))
     dW <- dW[to_keep]
     dat <- dat[to_keep,]

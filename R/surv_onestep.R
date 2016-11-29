@@ -5,7 +5,7 @@
 #'
 #' @param dat data.frame with columns T, A, W. All columns with character "W" will be treated as baseline covariates.
 #' @param dW binary input vector specifying dynamic treatment (as a function output of W)
-#' @param g.lib SuperLearner library for fitting treatment regression
+#' @param g.SL.Lib SuperLearner library for fitting treatment regression
 #' @param ht.SL.Lib SuperLearner library for fitting conditional hazard regression
 #' @param ... additional options for plotting initial fit curve
 #' @param epsilon.step step size for one-step recursion
@@ -27,7 +27,7 @@
 #' @import SuperLearner
 surv.one.step.complete <- function(dat,
                                    dW,
-                                   g.lib = c("SL.glm", "SL.step", "SL.glm.interaction"),
+                                   g.SL.Lib = c("SL.glm", "SL.step", "SL.glm.interaction"),
                                    ht.SL.Lib = c("SL.mean","SL.glm", "SL.gam", "SL.earth"),
                                    ...,
                                    epsilon.step = 1e-5, # the step size for one-step recursion
@@ -57,7 +57,7 @@ surv.one.step.complete <- function(dat,
     # ================================================================================================
     # estimate g(A|W)
     # ================================================================================================
-    gHatSL <- SuperLearner(Y=dat$A, X=W, SL.library=g.lib, family="binomial")
+    gHatSL <- SuperLearner(Y=dat$A, X=W, SL.library=g.SL.Lib, family="binomial")
     # g.hat for each observation
     g.fitted <- gHatSL$SL.predict
     # ================================================================================================
