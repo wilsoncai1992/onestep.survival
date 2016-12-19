@@ -61,9 +61,13 @@ check_and_preprocess <- function(dat, dW, nbin = 4) {
     is_conti <- checkBinary_df(df = dat, W_names = W_names) != 'bin'
     W_conti <- W_names[is_conti]
 
-    if(any(is_conti)) message(paste("Binning continuous covariates:", W_conti, collapse = ','))
-    for (it in W_conti) {
-        dat[,it] <- as.numeric(cut(dat[,it], nbin))
+    if(nbin <=0) {
+        message('Not binning any variable')
+    }else{
+        if(any(is_conti)) message(paste("Binning continuous covariates:", W_conti, collapse = ','))
+        for (it in W_conti) {
+            dat[,it] <- as.numeric(cut(dat[,it], nbin))
+        }
     }
     # ==================================================================================
     # check for positivity
