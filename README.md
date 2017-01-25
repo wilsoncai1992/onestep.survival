@@ -4,6 +4,11 @@
 <!-- [![](http://cranlogs.r-pkg.org/badges/onestep.survival)](http://cran.rstudio.com/web/packages/onestep.survival/index.html) [![](http://cranlogs.r-pkg.org/badges/grand-total/onestep.survival)](http://cran.rstudio.com/web/packages/onestep.survival/index.html) -->
 <!-- [![Travis-CI Build Status](https://travis-ci.org/wilsoncai1992/onestep.survival.svg?branch=master)](https://travis-ci.org/wilsoncai1992/onestep.survival) -->
 
+<img style="float: left;margin:0 5rem 0 0" src="http://media.web.britannica.com/eb-media/29/76829-050-CD9C4B43.jpg" width="30%" height="30%">
+<br>
+<!-- <img style="float: left;margin:0 5rem 0 0" src="http://www.feenixx.com/space-exploration/posters/First_Step_on_Moon_Poster.jpg" width="30%" height="30%">
+<br>
+ -->
 The `onestep.survival` R package is a tool for estimating counterfactual survival curve under static or dynamic interventions on treatment (exposure), while at the same time adjust for *measured* counfounding. Targeted Maximum Likelihood Estimate (TMLE) approach is employed to create a doubly robust and semi-parametrically efficient estimator. Machine Learning algorithms (SuperLearner) are implemented to all stages of the estimation.
 
 Currently implemented **estimators** include:
