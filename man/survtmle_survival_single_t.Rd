@@ -4,7 +4,7 @@
 \alias{survtmle_survival_single_t}
 \title{Iterative TMLE for survival curve at specific time point}
 \usage{
-survtmle_survival_single_t(dat, tk, dW = rep(1, nrow(dat)),
+survtmle_survival_single_t(dat, tk, dW = rep(1, nrow(dat)), T.cutoff = NULL,
   SL.ftime = c("SL.glm", "SL.mean", "SL.step", "SL.earth"),
   SL.ctime = c("SL.glm", "SL.mean"), SL.trt = c("SL.glm", "SL.mean",
   "SL.step", "SL.earth"))
@@ -13,12 +13,6 @@ survtmle_survival_single_t(dat, tk, dW = rep(1, nrow(dat)),
 \item{dat}{data.frame with columns T, A, C, W. All columns with character "W" will be treated as baseline covariates.}
 
 \item{tk}{time point to compute survival probability}
-
-\item{dW}{}
-
-\item{SL.ftime}{}
-
-\item{SL.ctime}{}
 
 \item{SL.trt}{}
 }

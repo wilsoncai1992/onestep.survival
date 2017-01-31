@@ -2,10 +2,10 @@
 #'
 #' @param dat data.frame with columns T, A, C, W. All columns with character "W" will be treated as baseline covariates.
 #' @param tk time point to compute survival probability
-#' @param dW 
-#' @param SL.ftime 
-#' @param SL.ctime 
-#' @param SL.trt 
+#' @param dW
+#' @param SL.ftime
+#' @param SL.ctime
+#' @param SL.trt
 #'
 #' @return
 #' @export
@@ -15,11 +15,15 @@
 #' @import Matrix
 survtmle_survival_single_t <- function(dat, tk,
                                        dW = rep(1, nrow(dat)),
+                                       T.cutoff = NULL,
                                        SL.ftime = c("SL.glm","SL.mean","SL.step", "SL.earth"),
                                        SL.ctime = c("SL.glm","SL.mean"),
                                        SL.trt = c("SL.glm","SL.mean","SL.step", "SL.earth")
                                        ) {
-    after_check <- check_and_preprocess(dat = dat, dW = dW)
+    # ===================================================================================
+    # preparation
+    # ===================================================================================
+    after_check <- check_and_preprocess(dat = dat, dW = dW, T.cutoff = T.cutoff)
     dat <- after_check$dat
     dW <- after_check$dW
     n.data <- after_check$n.data

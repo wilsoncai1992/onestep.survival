@@ -4,7 +4,7 @@
 \alias{check_and_preprocess}
 \title{Validate and preprocess the data}
 \usage{
-check_and_preprocess(dat, dW, nbin = 4)
+check_and_preprocess(dat, dW, nbin = 4, T.cutoff = NULL)
 }
 \arguments{
 \item{dat}{The dat}

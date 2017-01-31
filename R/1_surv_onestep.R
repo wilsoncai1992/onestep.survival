@@ -10,6 +10,7 @@
 #' @param ... additional options for plotting initial fit curve
 #' @param epsilon.step step size for one-step recursion
 #' @param max.iter maximal number of recursion for one-step
+#' @param T.cutoff  manual right censor the data; remove parts dont want to esimate
 #' @param tol tolerance for optimization
 #' @param verbose to plot the initial fit curve and the objective function value during optimzation
 #'
@@ -33,11 +34,12 @@ surv.one.step.complete <- function(dat,
                                    epsilon.step = 1e-5, # the step size for one-step recursion
                                    max.iter = 1e3, # maximal number of recursion for one-step
                                    tol = 1/nrow(dat), # tolerance for optimization
+                                   T.cutoff = NULL,
                                    verbose = TRUE) {
     # ================================================================================================
     # preparation
     # ================================================================================================
-    after_check <- check_and_preprocess(dat = dat, dW = dW)
+    after_check <- check_and_preprocess(dat = dat, dW = dW, T.cutoff = T.cutoff)
     dat <- after_check$dat
     dW <- after_check$dW
     n.data <- after_check$n.data

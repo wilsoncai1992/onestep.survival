@@ -8,7 +8,7 @@ surv.one.step(dat, dW, g.SL.Lib = c("SL.glm", "SL.step",
   "SL.glm.interaction"), Delta.SL.Lib = c("SL.mean", "SL.glm", "SL.gam",
   "SL.earth"), ht.SL.Lib = c("SL.mean", "SL.glm", "SL.gam", "SL.earth"), ...,
   epsilon.step = 1e-05, max.iter = 1000, tol = 1/nrow(dat),
-  verbose = TRUE)
+  T.cutoff = NULL, verbose = TRUE)
 }
 \arguments{
 \item{dat}{data.frame with columns T, A, C, W. All columns with character "W" will be treated as baseline covariates.}
@@ -28,6 +28,8 @@ surv.one.step(dat, dW, g.SL.Lib = c("SL.glm", "SL.step",
 \item{max.iter}{maximal number of recursion for one-step}
 
 \item{tol}{tolerance for optimization}
+
+\item{T.cutoff}{manual right censor the data; remove parts dont want to esimate}
 
 \item{verbose}{to plot the initial fit curve and the objective function value during optimzation}
 }

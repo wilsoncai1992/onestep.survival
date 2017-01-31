@@ -7,7 +7,8 @@
 onestep_single_t(dat, tk, dW = rep(1, nrow(dat)), SL.trt = c("SL.glm",
   "SL.step", "SL.earth"), SL.ctime = c("SL.glm", "SL.step", "SL.earth"),
   SL.ftime = c("SL.glm", "SL.step", "SL.earth"), maxIter = 300,
-  epsilon_step = 0.001, tol = 1/nrow(dat), verbose = FALSE)
+  epsilon_step = 0.001, tol = 1/nrow(dat), T.cutoff = NULL,
+  verbose = FALSE)
 }
 \arguments{
 \item{dat}{data.frame with columns T, A, C, W. All columns with character "W" will be treated as baseline covariates.}
@@ -27,6 +28,8 @@ onestep_single_t(dat, tk, dW = rep(1, nrow(dat)), SL.trt = c("SL.glm",
 \item{epsilon_step}{step size for one-step recursion}
 
 \item{tol}{tolerance for optimization}
+
+\item{T.cutoff}{manual right censor the data; remove parts dont want to esimate}
 
 \item{verbose}{to print log-likelihood value during optimzation}
 }

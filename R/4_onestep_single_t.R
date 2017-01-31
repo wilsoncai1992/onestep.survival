@@ -9,6 +9,7 @@
 #' @param maxIter maximal number of recursion for one-step
 #' @param epsilon_step step size for one-step recursion
 #' @param tol tolerance for optimization
+#' @param T.cutoff  manual right censor the data; remove parts dont want to esimate
 #' @param verbose to print log-likelihood value during optimzation
 #'
 #' @return
@@ -25,11 +26,12 @@ onestep_single_t <- function(dat, tk, dW = rep(1, nrow(dat)),
                              maxIter = 3e2,
                              epsilon_step = 1e-3,
                              tol = 1/nrow(dat),
+                             T.cutoff = NULL,
                              verbose = FALSE){
     # ====================================================================================================
     # input validation
     # ====================================================================================================
-    after_check <- check_and_preprocess(dat = dat, dW = dW)
+    after_check <- check_and_preprocess(dat = dat, dW = dW, T.cutoff = T.cutoff)
     dat <- after_check$dat
     dW <- after_check$dW
     n.data <- after_check$n.data

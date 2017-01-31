@@ -7,7 +7,7 @@
 #' @return
 #' @export
 #'
-check_and_preprocess <- function(dat, dW, nbin = 4) {
+check_and_preprocess <- function(dat, dW, nbin = 4, T.cutoff = NULL) {
     to_keep <- (dat$T.tilde != 0)
     dW <- dW[to_keep]
     dat <- dat[to_keep,]
@@ -68,6 +68,14 @@ check_and_preprocess <- function(dat, dW, nbin = 4) {
         for (it in W_conti) {
             dat[,it] <- as.numeric(cut(dat[,it], nbin))
         }
+    }
+    # =======================================================================================
+    # user-applied cutoff
+    # =======================================================================================
+    if(!is.null(T.cutoff)){
+        message(paste('Manual right-censor the data up to time', T.cutoff))
+        dat$delta[dat$T.tilde >= T.cutoff] <- 0
+        dat$T.tilde[dat$T.tilde >= T.cutoff] <- T.cutoff
     }
     # ==================================================================================
     # check for positivity

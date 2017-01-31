@@ -12,6 +12,7 @@
 #' @param epsilon.step step size for one-step recursion
 #' @param max.iter maximal number of recursion for one-step
 #' @param tol  tolerance for optimization
+#' @param T.cutoff  manual right censor the data; remove parts dont want to esimate
 #' @param verbose to plot the initial fit curve and the objective function value during optimzation
 #'
 #' @return Psi.hat vector of survival curve under intervention
@@ -37,11 +38,12 @@ surv.one.step <- function(dat,
                           epsilon.step = 1e-5,
                           max.iter = 1e3,
                           tol = 1/nrow(dat),
+                          T.cutoff = NULL,
                           verbose = TRUE) {
     # ===================================================================================
     # preparation
     # ===================================================================================
-    after_check <- check_and_preprocess(dat = dat, dW = dW)
+    after_check <- check_and_preprocess(dat = dat, dW = dW, T.cutoff = T.cutoff)
     dat <- after_check$dat
     dW <- after_check$dW
     n.data <- after_check$n.data
@@ -84,6 +86,13 @@ surv.one.step <- function(dat,
     message('estimating censoring')
     G.hat.t <- censor_SL_wrapper(dat = dat, T.uniq = T.uniq,
                                  Delta.SL.Lib = Delta.SL.Lib)
+    cutoff <- 0.1
+    # cutoff <- 0.05
+    if(any(G.hat.t$out_censor_full <= cutoff)){
+        warning('G.hat has extreme small values! lower truncate to 0.02')
+        G.hat.t$out_censor_full[G.hat.t$out_censor_full < cutoff] <- cutoff
+        G.hat.t$out_censor[G.hat.t$out_censor < cutoff] <- cutoff
+    }
 
     Gn.A1.t_full <- as.matrix(G.hat.t$out_censor_full)
     Gn.A1.t <- as.matrix(G.hat.t$out_censor)

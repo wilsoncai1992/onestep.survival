@@ -4,9 +4,10 @@
 \alias{survtmle_survival}
 \title{Iterative TMLE for survival curve}
 \usage{
-survtmle_survival(dat, dW = rep(1, nrow(dat)), SL.ftime = c("SL.glm",
-  "SL.mean", "SL.step", "SL.earth"), SL.ctime = c("SL.glm", "SL.mean"),
-  SL.trt = c("SL.glm", "SL.mean", "SL.step", "SL.earth"))
+survtmle_survival(dat, dW = rep(1, nrow(dat)), T.cutoff = NULL,
+  SL.ftime = c("SL.glm", "SL.mean", "SL.step", "SL.earth"),
+  SL.ctime = c("SL.glm", "SL.mean"), SL.trt = c("SL.glm", "SL.mean",
+  "SL.step", "SL.earth"))
 }
 \arguments{
 \item{dat}{data.frame with columns T, A, W. All columns with character "W" will be treated as baseline covariates.}
