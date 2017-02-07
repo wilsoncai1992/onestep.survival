@@ -23,4 +23,3 @@ compute cumulative distribution function of a step-shaped (empirical) density
 \examples{
 # TO DO
 }
-

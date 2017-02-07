@@ -16,4 +16,3 @@ plot_initial_S(onestepfit, add = FALSE, ...)
 \description{
 Title
 }
-

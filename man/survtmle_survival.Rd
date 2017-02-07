@@ -18,4 +18,3 @@ data.frame, where the first column is survival probability, second column is the
 \description{
 Iterative TMLE for survival curve
 }
-

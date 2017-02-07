@@ -22,4 +22,3 @@ loop over t.vec
 \examples{
 # TO DO
 }
-

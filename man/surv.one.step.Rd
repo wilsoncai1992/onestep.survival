@@ -51,4 +51,3 @@ SL.formula: the covariates to include in SL
 \examples{
 # TODO
 }
-

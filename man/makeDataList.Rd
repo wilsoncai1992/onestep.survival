@@ -30,4 +30,3 @@ generate data.frame to be used in survtmle package
 \examples{
 # TO DO
 }
-

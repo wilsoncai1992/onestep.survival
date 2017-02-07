@@ -15,4 +15,3 @@ NA
 \description{
 Plot the survival curve estimator
 }
-

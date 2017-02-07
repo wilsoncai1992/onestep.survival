@@ -24,4 +24,3 @@ wrapper for censoring regression SuperLearner
 \examples{
 # TO DO
 }
-

@@ -16,4 +16,3 @@ plot_initial_G(onestepfit, add = FALSE, ...)
 \description{
 Title
 }
-

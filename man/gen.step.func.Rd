@@ -21,4 +21,3 @@ generate step function object using y value and corresponding jump points
 \examples{
 # TO DO
 }
-

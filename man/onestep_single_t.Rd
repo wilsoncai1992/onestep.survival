@@ -39,4 +39,3 @@ One-step TMLE estimator for survival at specific time point
 \examples{
 # TO DO
 }
-

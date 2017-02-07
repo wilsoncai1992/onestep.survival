@@ -16,4 +16,3 @@ check_and_preprocess(dat, dW, nbin = 4, T.cutoff = NULL)
 \description{
 Validate and preprocess the data
 }
-

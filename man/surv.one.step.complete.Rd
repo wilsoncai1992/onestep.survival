@@ -45,4 +45,3 @@ initial_fit list of initial fit (hazard, g_1, Delta)
 options to ADD:
 SL.formula: the covariates to include in SL
 }
-

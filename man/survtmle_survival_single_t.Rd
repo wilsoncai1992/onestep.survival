@@ -19,4 +19,3 @@ survtmle_survival_single_t(dat, tk, dW = rep(1, nrow(dat)), T.cutoff = NULL,
 \description{
 Iterative TMLE for survival curve at specific time point
 }
-

@@ -42,4 +42,3 @@ Conditional Hazard estimation in survtmle package
 \examples{
 # TO DO
 }
-

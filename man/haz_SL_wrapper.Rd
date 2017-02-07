@@ -24,4 +24,3 @@ use T, A, C, W data format as input
 \examples{
 # TO DO
 }
-

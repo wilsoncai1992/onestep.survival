@@ -190,8 +190,8 @@ surv.one.step <- function(dat,
     iter.count <- 0
     stopping.prev <- Inf
 
-    # while ((stopping.criteria >= tol) & (iter.count <= max.iter)) { # ORGINAL
-    while ((stopping.criteria >= tol) & (iter.count <= max.iter) & ((stopping.prev - stopping.criteria) >= max(-tol, -1e-5))) { #WILSON: TEMPORARY
+    while ((stopping.criteria >= tol) & (iter.count <= max.iter)) { # ORGINAL
+    # while ((stopping.criteria >= tol) & (iter.count <= max.iter) & ((stopping.prev - stopping.criteria) >= max(-tol, -1e-5))) { #WILSON: TEMPORARY
         if(verbose) print(stopping.criteria)
         # =============================================================================
         # update the qn
@@ -271,7 +271,8 @@ surv.one.step <- function(dat,
         # previous stopping criteria
         stopping.prev <- stopping.criteria
         # new stopping criteria
-        stopping.criteria <- sqrt(l2.inner.step(Pn.D1.t, Pn.D1.t, T.uniq))/length(T.uniq)
+        # stopping.criteria <- sqrt(l2.inner.step(Pn.D1.t, Pn.D1.t, T.uniq))/length(T.uniq)
+        stopping.criteria <- sqrt(l2.inner.step(Pn.D1.t, Pn.D1.t, T.uniq))/max(T.uniq)
         iter.count <- iter.count + 1
 
         ########################################################################
@@ -322,13 +323,19 @@ surv.one.step <- function(dat,
     # ===================================================================================
     # return the mean of those with observed A == dW
     Psi.hat <- colMeans(Qn.current)
+    # variance of the EIC
+    var_CI <- apply(updated_IC$D1.t, 2, var)/n.data
     # --------------------------------------------------
-    variables <- list(T.uniq = T.uniq, Qn.current = Qn.current, D1.A1.t = D1.A1.t, D1.t = D1.t)
+    # sup norm for each dim of EIC
+    sup_norm_EIC <- abs(Pn.D1.t)
+
+    variables <- list(T.uniq = T.uniq, Qn.current = Qn.current, D1.A1.t = D1.A1.t, D1.t = D1.t, Pn.D1.t = Pn.D1.t, sup_norm_EIC = sup_norm_EIC)
     params <- list(stopping.criteria = stopping.criteria, epsilon.step = epsilon.step, iter.count = iter.count, max.iter = max.iter, dat = dat, dW = dW)
     initial_fit <- list(h.hat.t = h.hat.t, Qn.A1.t = Qn.A1.t, qn.A1.t = qn.A1.t, G.hat.t = G.hat.t)
     # --------------------------------------------------
     to.return <- list(Psi.hat = Psi.hat,
                       T.uniq = T.uniq,
+                      var = var_CI,
                       params = params,
                       variables = variables,
                       initial_fit = initial_fit)

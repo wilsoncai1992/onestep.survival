@@ -18,4 +18,3 @@ raise warning when positivity violated
 Check whether positivity assumption is violated in data
 censored data NOT supported
 }
-
