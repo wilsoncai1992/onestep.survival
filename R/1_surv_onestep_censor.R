@@ -272,7 +272,7 @@ surv.one.step <- function(dat,
         stopping.prev <- stopping.criteria
         # new stopping criteria
         # stopping.criteria <- sqrt(l2.inner.step(Pn.D1.t, Pn.D1.t, T.uniq))/length(T.uniq)
-        stopping.criteria <- sqrt(l2.inner.step(Pn.D1.t, Pn.D1.t, T.uniq))/max(T.uniq)
+        stopping.criteria <- sqrt(l2.inner.step(Pn.D1.t, Pn.D1.t, T.uniq)/max(T.uniq))
         iter.count <- iter.count + 1
 
         ########################################################################
