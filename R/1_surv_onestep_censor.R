@@ -189,6 +189,8 @@ surv.one.step <- function(dat,
     update.tensor <- matrix(0, nrow = n.data, ncol = length(T.uniq))
     iter.count <- 0
     stopping.prev <- Inf
+    all_stopping <- numeric(stopping.criteria)
+    all_loglikeli <- numeric()
 
     while ((stopping.criteria >= tol) & (iter.count <= max.iter)) { # ORGINAL
     # while ((stopping.criteria >= tol) & (iter.count <= max.iter) & ((stopping.prev - stopping.criteria) >= max(-tol, -1e-5))) { #WILSON: TEMPORARY
@@ -205,6 +207,9 @@ surv.one.step <- function(dat,
                                      dW = dW)
         # ------------------------------------------------------------------------
         update.tensor <- update.tensor + update.mat
+
+        # accelerate when log-like becomes flat
+        # if((stopping.prev - stopping.criteria) > 0 & (stopping.prev - stopping.criteria) < 1e-3) update.tensor <- update.tensor + update.mat*10
 
         # intergrand <- rowSums(update.tensor)
         # intergrand <- apply(update.tensor, c(1,2), sum)
@@ -274,6 +279,20 @@ surv.one.step <- function(dat,
         # stopping.criteria <- sqrt(l2.inner.step(Pn.D1.t, Pn.D1.t, T.uniq))/length(T.uniq)
         stopping.criteria <- sqrt(l2.inner.step(Pn.D1.t, Pn.D1.t, T.uniq)/max(T.uniq))
         iter.count <- iter.count + 1
+        # ===================================================================================
+        # evaluate log-likelihood
+
+        # construct obj
+        obj <- list()
+        obj$qn.current_full <- qn.current_full
+        obj$Qn.current_full <- Qn.current_full
+        obj$h.hat.t_full_current <- h.hat.t_full_current
+        obj$dat <- dat
+        # eval loglikeli
+        loglike_here <- eval_loglikeli(obj, dW)
+        all_loglikeli <- c(all_loglikeli, loglike_here)
+        all_stopping <- c(all_stopping, stopping.criteria)
+
 
         ########################################################################
         # FOR DEBUG ONLY
@@ -315,6 +334,7 @@ surv.one.step <- function(dat,
         # if the iteration immediately converge
         message('converge suddenly!')
         Qn.current <- Qn.A1.t
+        updated_IC <- initial_IC
         Psi.hat <- colMeans(Qn.current)
     }
 
@@ -332,13 +352,15 @@ surv.one.step <- function(dat,
     variables <- list(T.uniq = T.uniq, Qn.current = Qn.current, D1.A1.t = D1.A1.t, D1.t = D1.t, Pn.D1.t = Pn.D1.t, sup_norm_EIC = sup_norm_EIC)
     params <- list(stopping.criteria = stopping.criteria, epsilon.step = epsilon.step, iter.count = iter.count, max.iter = max.iter, dat = dat, dW = dW)
     initial_fit <- list(h.hat.t = h.hat.t, Qn.A1.t = Qn.A1.t, qn.A1.t = qn.A1.t, G.hat.t = G.hat.t)
+    convergence <- list(all_loglikeli = all_loglikeli, all_stopping = all_stopping)
     # --------------------------------------------------
     to.return <- list(Psi.hat = Psi.hat,
                       T.uniq = T.uniq,
                       var = var_CI,
                       params = params,
                       variables = variables,
-                      initial_fit = initial_fit)
+                      initial_fit = initial_fit,
+                      convergence = convergence)
     class(to.return) <- 'surv_onestep'
     return(to.return)
 
