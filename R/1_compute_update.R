@@ -34,7 +34,9 @@ compute.update <- function(D1.t.func.prev, Pn.D1.func.prev, dat, T.uniq, W_names
     # ORIGINAL PAPER
     # calculate the number inside exp{} expression in submodel
     # each strata of Q is updated the same
-    numerator <- sweep(D1.t.func.prev, MARGIN=2, -abs(Pn.D1.func.prev),`*`)
+
+    # numerator <- sweep(D1.t.func.prev, MARGIN=2, -abs(Pn.D1.func.prev),`*`)
+    numerator <- sweep(D1.t.func.prev, MARGIN=2, Pn.D1.func.prev,`*`)
     result <- numerator /
         sqrt(l2.inner.step(Pn.D1.func.prev, Pn.D1.func.prev, T.uniq))
 
