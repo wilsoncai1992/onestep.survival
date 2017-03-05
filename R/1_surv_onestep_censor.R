@@ -86,10 +86,10 @@ surv.one.step <- function(dat,
     message('estimating censoring')
     G.hat.t <- censor_SL_wrapper(dat = dat, T.uniq = T.uniq,
                                  Delta.SL.Lib = Delta.SL.Lib)
-    cutoff <- 0.1
-    # cutoff <- 0.05
+    # cutoff <- 0.1
+    cutoff <- 0.05
     if(any(G.hat.t$out_censor_full <= cutoff)){
-        warning('G.hat has extreme small values! lower truncate to 0.02')
+        warning('G.hat has extreme small values! lower truncate to 0.05')
         G.hat.t$out_censor_full[G.hat.t$out_censor_full < cutoff] <- cutoff
         G.hat.t$out_censor[G.hat.t$out_censor < cutoff] <- cutoff
     }
