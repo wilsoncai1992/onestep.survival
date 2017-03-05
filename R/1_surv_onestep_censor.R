@@ -297,34 +297,34 @@ surv.one.step <- function(dat,
 
         ########################################################################
         # FOR DEBUG ONLY
-        if (TRUE) {
-          # ------------------------------------------------------------
-          # q <- seq(0,10,.1)
-          ## truesurvExp <- 1 - pexp(q, rate = 1)
-          # truesurvExp <- 1 - pexp(q, rate = .5)
-          # plot(round(q*100,0), truesurvExp, type="l", cex=0.2, col = 'red', main = paste('l2 error =', stopping.criteria))
+        # if (TRUE) {
+        #   # ------------------------------------------------------------
+        #   # q <- seq(0,10,.1)
+        #   ## truesurvExp <- 1 - pexp(q, rate = 1)
+        #   # truesurvExp <- 1 - pexp(q, rate = .5)
+        #   # plot(round(q*100,0), truesurvExp, type="l", cex=0.2, col = 'red', main = paste('l2 error =', stopping.criteria))
 
-          # library(survival)
-          # n.data <- nrow(dat)
-          # km.fit <- survfit(Surv(T,rep(1, n.data)) ~ A, data = dat)
-          # lines(km.fit)
-          # ------------------------------------------------------------
-          # Psi.hat <- colMeans(Qn.current[dat$A==dW,])
+        #   # library(survival)
+        #   # n.data <- nrow(dat)
+        #   # km.fit <- survfit(Surv(T,rep(1, n.data)) ~ A, data = dat)
+        #   # lines(km.fit)
+        #   # ------------------------------------------------------------
+        #   # Psi.hat <- colMeans(Qn.current[dat$A==dW,])
 
-          # Psi.hat <- colMeans(Qn.current[dat$A==dW & dat$W==0,])
-          # ------------------------------------------------------------
-          # Q_weighted <- Qn.current/g.fitted[,1] # 09-18: inverse weight by propensity score
-          # Q_weighted[dat$A!=dW,] <- 0
-          # Psi.hat <- colMeans(Q_weighted) # 09-18: inverse weight by propensity score
-          # ------------------------------------------------------------
-            # 10-06: update all subjects with same W strata
-          Psi.hat <- colMeans(Qn.current)
-          # ------------------------------------------------------------
+        #   # Psi.hat <- colMeans(Qn.current[dat$A==dW & dat$W==0,])
+        #   # ------------------------------------------------------------
+        #   # Q_weighted <- Qn.current/g.fitted[,1] # 09-18: inverse weight by propensity score
+        #   # Q_weighted[dat$A!=dW,] <- 0
+        #   # Psi.hat <- colMeans(Q_weighted) # 09-18: inverse weight by propensity score
+        #   # ------------------------------------------------------------
+        #     # 10-06: update all subjects with same W strata
+        #   Psi.hat <- colMeans(Qn.current)
+        #   # ------------------------------------------------------------
 
-          lines(Psi.hat ~ T.uniq, type = 'l', col = 'blue', lwd = .1)
-          # ------------------------------------------------------------
-          # legend('topright', lty=1, legend = c('true', 'KM', 'one-step'), col=c('red', 'black', 'blue'))
-        }
+        #   lines(Psi.hat ~ T.uniq, type = 'l', col = 'blue', lwd = .1)
+        #   # ------------------------------------------------------------
+        #   # legend('topright', lty=1, legend = c('true', 'KM', 'one-step'), col=c('red', 'black', 'blue'))
+        # }
         ########################################################################
         if (iter.count == max.iter) {
             warning('Max Iter count reached, stop iteration.')
