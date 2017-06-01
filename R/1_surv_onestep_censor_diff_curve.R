@@ -265,11 +265,11 @@ surv.one.step.differnece <- function(dat,
 
         # For density sum > 1: normalize the updated qn
         norm.factor_1 <- compute.step.cdf(pdf.mat = qn.current_1, t.vec = T.uniq, start = Inf)[,1] #09-06
-        qn.current_1[norm.factor_1 > 1,] <- qn.current_1[norm.factor_1 > 1,] / norm.factor_1[norm.factor_1 > 1] #09-06
-        qn.current_full_1[norm.factor_1 > 1,] <- qn.current_full_1[norm.factor_1 > 1,] / norm.factor_1[norm.factor_1 > 1] #10-23
+        # qn.current_1[norm.factor_1 > 1,] <- qn.current_1[norm.factor_1 > 1,] / norm.factor_1[norm.factor_1 > 1] #09-06
+        # qn.current_full_1[norm.factor_1 > 1,] <- qn.current_full_1[norm.factor_1 > 1,] / norm.factor_1[norm.factor_1 > 1] #10-23
         norm.factor_0 <- compute.step.cdf(pdf.mat = qn.current_0, t.vec = T.uniq, start = Inf)[,1] #09-06
-        qn.current_0[norm.factor_0 > 1,] <- qn.current_0[norm.factor_0 > 1,] / norm.factor_0[norm.factor_0 > 1] #09-06
-        qn.current_full_0[norm.factor_0 > 1,] <- qn.current_full_0[norm.factor_0 > 1,] / norm.factor_0[norm.factor_0 > 1] #10-23
+        # qn.current_0[norm.factor_0 > 1,] <- qn.current_0[norm.factor_0 > 1,] / norm.factor_0[norm.factor_0 > 1] #09-06
+        # qn.current_full_0[norm.factor_0 > 1,] <- qn.current_full_0[norm.factor_0 > 1,] / norm.factor_0[norm.factor_0 > 1] #10-23
 
         # 11-26
         # For density sum > 1: truncate the density outside sum = 1 to be zero
