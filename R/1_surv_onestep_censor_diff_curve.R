@@ -242,6 +242,7 @@ surv.one.step.differnece <- function(dat,
         # update the qn
         # ------------------------------------------------------------------------
         # vectorized
+        # update.mat <- compute.update.difference(D1.t.func.prev = D1.t,
         update.mat <- compute.update(D1.t.func.prev = D1.t,
                                      Pn.D1.func.prev = Pn.D1.t,
                                      dat = dat,
@@ -258,8 +259,12 @@ surv.one.step.differnece <- function(dat,
         # intergrand <- apply(update.tensor, c(1,2), sum)
         intergrand <- update.tensor
         intergrand[is.na(intergrand)] <- 0
-        qn.current_0 <- qn.A1.t_0 * exp(epsilon.step * intergrand)
-        qn.current_full_0 <- qn.A1.t_full_0 * exp(epsilon.step * replicate(T.max, intergrand[,1])) #10-23
+        # qn.current_0 <- qn.A1.t_0 * exp(epsilon.step * intergrand)
+        # qn.current_full_0 <- qn.A1.t_full_0 * exp(epsilon.step * replicate(T.max, intergrand[,1])) #10-23
+        # qn.current_0 <- qn.A1.t_0 * exp(-epsilon.step * intergrand)
+        # qn.current_full_0 <- qn.A1.t_full_0 * exp(-epsilon.step * replicate(T.max, intergrand[,1])) #10-23
+        qn.current_0 <- qn.A1.t_0
+        qn.current_full_0 <- qn.A1.t_full_0
         qn.current_1 <- qn.A1.t_1 * exp(epsilon.step * intergrand)
         qn.current_full_1 <- qn.A1.t_full_1 * exp(epsilon.step * replicate(T.max, intergrand[,1])) #10-23
 
@@ -288,20 +293,20 @@ surv.one.step.differnece <- function(dat,
         # compute new Qn
 
         Qn.current_1 <- compute.step.cdf(pdf.mat = qn.current_1, t.vec = T.uniq, start = Inf) # 2016-09-06
-        # cdf_offset_1 <- 1 - Qn.current_1[,1] # 2016-09-06
-        # Qn.current_1 <- Qn.current_1 + cdf_offset_1 # 2016-09-06
+        cdf_offset_1 <- 1 - Qn.current_1[,1] # 2016-09-06
+        Qn.current_1 <- Qn.current_1 + cdf_offset_1 # 2016-09-06
 
         Qn.current_full_1 <- compute.step.cdf(pdf.mat = qn.current_full_1, t.vec = 1:max(T.uniq), start = Inf) # 10-23
-        # cdf_offset_1 <- 1 - Qn.current_full_1[,1] # 10-23
-        # Qn.current_full_1 <- Qn.current_full_1 + cdf_offset_1 # 10-23
+        cdf_offset_1 <- 1 - Qn.current_full_1[,1] # 10-23
+        Qn.current_full_1 <- Qn.current_full_1 + cdf_offset_1 # 10-23
 
         Qn.current_0 <- compute.step.cdf(pdf.mat = qn.current_0, t.vec = T.uniq, start = Inf) # 2016-09-06
-        # cdf_offset_0 <- 1 - Qn.current_0[,1] # 2016-09-06
-        # Qn.current_0 <- Qn.current_0 + cdf_offset_0 # 2016-09-06
+        cdf_offset_0 <- 1 - Qn.current_0[,1] # 2016-09-06
+        Qn.current_0 <- Qn.current_0 + cdf_offset_0 # 2016-09-06
 
         Qn.current_full_0 <- compute.step.cdf(pdf.mat = qn.current_full_0, t.vec = 1:max(T.uniq), start = Inf) # 10-23
-        # cdf_offset_0 <- 1 - Qn.current_full_0[,1] # 10-23
-        # Qn.current_full_0 <- Qn.current_full_0 + cdf_offset_0 # 10-23
+        cdf_offset_0 <- 1 - Qn.current_full_0[,1] # 10-23
+        Qn.current_full_0 <- Qn.current_full_0 + cdf_offset_0 # 10-23
 
         Psin.current <- Qn.current_1 - Qn.current_0
         # check error
@@ -356,17 +361,18 @@ surv.one.step.differnece <- function(dat,
         # evaluate log-likelihood
 
         # construct obj
-        obj <- list()
-        obj$qn.current_full_1 <- qn.current_full_1
-        obj$Qn.current_full_1 <- Qn.current_full_1
-        obj$h.hat.t_full_current_1 <- h.hat.t_full_current_1
-        obj$dat <- dat
-        obj$qn.current_full_0 <- qn.current_full_0
-        obj$Qn.current_full_0 <- Qn.current_full_0
-        obj$h.hat.t_full_current_0 <- h.hat.t_full_current_0
-        obj$dat <- dat
+        # obj <- list()
+        # obj$qn.current_full_1 <- qn.current_full_1
+        # obj$Qn.current_full_1 <- Qn.current_full_1
+        # obj$h.hat.t_full_current_1 <- h.hat.t_full_current_1
+        # obj$dat <- dat
+        # obj$qn.current_full_0 <- qn.current_full_0
+        # obj$Qn.current_full_0 <- Qn.current_full_0
+        # obj$h.hat.t_full_current_0 <- h.hat.t_full_current_0
+        # obj$dat <- dat
 
-        obj$Psin.current <- Psin.current
+        # obj$Psin.current <- Psin.current
+
         # eval loglikeli
         # loglike_here <- eval_loglikeli(obj, dW)
         # all_loglikeli <- c(all_loglikeli, loglike_here)
@@ -398,7 +404,8 @@ surv.one.step.differnece <- function(dat,
             # 10-06: update all subjects with same W strata
           # Psi.hat <- colMeans(Qn.current)
           # ------------------------------------------------------------
-
+          lines(colMeans(Qn.current_1) ~ T.uniq)
+          lines(colMeans(Qn.current_0) ~ T.uniq)
           # lines(Psi.hat ~ T.uniq, type = 'l', col = 'blue', lwd = .1)
           lines(colMeans(Psin.current) ~ T.uniq, type = 'l', col = 'blue', lwd = .1)
           # ------------------------------------------------------------

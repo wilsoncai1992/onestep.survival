@@ -4,7 +4,7 @@
 \alias{eval_loglikeli}
 \title{Title}
 \usage{
-eval_loglikeli(obj)
+eval_loglikeli(obj, dW)
 }
 \arguments{
 \item{obj}{}
