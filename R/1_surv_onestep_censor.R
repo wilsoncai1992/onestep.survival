@@ -351,7 +351,7 @@ surv.one.step <- function(dat,
 
     variables <- list(T.uniq = T.uniq, Qn.current = Qn.current, D1.A1.t = D1.A1.t, D1.t = D1.t, Pn.D1.t = Pn.D1.t, sup_norm_EIC = sup_norm_EIC)
     params <- list(stopping.criteria = stopping.criteria, epsilon.step = epsilon.step, iter.count = iter.count, max.iter = max.iter, dat = dat, dW = dW)
-    initial_fit <- list(h.hat.t = h.hat.t, Qn.A1.t = Qn.A1.t, qn.A1.t = qn.A1.t, G.hat.t = G.hat.t)
+    initial_fit <- list(h.hat.t = h.hat.t, Qn.A1.t = Qn.A1.t, qn.A1.t = qn.A1.t, G.hat.t = G.hat.t, g.fitted = g.fitted)
     convergence <- list(all_loglikeli = all_loglikeli, all_stopping = all_stopping)
     # --------------------------------------------------
     to.return <- list(Psi.hat = Psi.hat,
