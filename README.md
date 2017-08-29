@@ -57,13 +57,13 @@ help(package = 'onestep.survival')
 The data input of all methods in the package should be an `R` `data.frame` in the following survival long data format:
 
 ```R
-#   ID W1 W A   T delta
-# 1  1  1 0 0  23     0
-# 2  2  1 0 0  80     1
-# 3  3  0 0 0  24     1
-# 4  4  0 0 0 115     0
-# 5  5  0 1 1   3     0
-# 6  6  0 0 0   6     1
+#   ID W A T.tilde delta
+# 1  1 0 0      95     1
+# 2  2 1 1       1     0
+# 3  3 0 0     215     1
+# 4  4 1 1      15     1
+# 5  5 0 0      73     1
+# 6  6 0 0      15     1
 ```
 
 ## Citation
