@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' # NA
-SummarizeWeights <- function(onestep_curve) {
+summarize_weights <- function(onestep_curve) {
     out <- list(
     summary(as.vector(as.matrix(onestep_curve$initial_fit$G.hat.t$out_censor))),
     summary(onestep_curve$initial_fit$g.fitted),

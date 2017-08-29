@@ -8,7 +8,7 @@
 #' @examples
 #' @import survtmle
 #' @import Matrix
-survtmle_survival <- function(dat, dW = rep(1, nrow(dat)),
+survtmle_multi_t <- function(dat, dW = rep(1, nrow(dat)),
                               T.cutoff = NULL,
                               SL.ftime = c("SL.glm","SL.mean","SL.step", "SL.earth"),
                               SL.ctime = c("SL.glm","SL.mean"),

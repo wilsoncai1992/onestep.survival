@@ -402,7 +402,7 @@ surv_onestep_difference <- function(dat,
         # obj$Psin.current <- Psin.current
 
         # eval loglikeli
-        # loglike_here <- eval_loglikeli(obj, dW)
+        # loglike_here <- eval_loglike(obj, dW)
         # all_loglikeli <- c(all_loglikeli, loglike_here)
         # all_stopping <- c(all_stopping, stopping.criteria)
 

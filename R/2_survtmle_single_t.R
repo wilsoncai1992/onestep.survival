@@ -13,7 +13,7 @@
 #' @examples
 #' @import survtmle
 #' @import Matrix
-survtmle_survival_single_t <- function(dat, tk,
+survtmle_single_t <- function(dat, tk,
                                        dW = rep(1, nrow(dat)),
                                        T.cutoff = NULL,
                                        SL.ftime = c("SL.glm","SL.mean","SL.step", "SL.earth"),

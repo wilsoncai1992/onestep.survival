@@ -317,7 +317,7 @@ surv_onestep <- function(dat,
         obj$h.hat.t_full_current <- h.hat.t_full_current
         obj$dat <- dat
         # eval loglikeli
-        loglike_here <- eval_loglikeli(obj, dW)
+        loglike_here <- eval_loglike(obj, dW)
         all_loglikeli <- c(all_loglikeli, loglike_here)
         all_stopping <- c(all_stopping, stopping.criteria)
 
