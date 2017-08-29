@@ -50,7 +50,7 @@ censor_SL_wrapper <- function(dat,
     # ====================================================================================================
     # dataList
     # ====================================================================================================
-    datalist <- survtmle::makeDataList(dat = dat_david,
+    datalist <- survtmle:::makeDataList(dat = dat_david,
                                        J = 1, # one kind of failure
                                        ntrt = 2, # one kind of treatment
                                        uniqtrt = c(0,1),
@@ -60,7 +60,7 @@ censor_SL_wrapper <- function(dat,
     # estimate g_2 (censoring)
     # perform censoring SL for the maximum time point
     # ====================================================================================================
-    g2_hat <- estimateCensoring(dataList = datalist, adjustVars = adjustVars,
+    g2_hat <- survtmle:::estimateCensoring(dataList = datalist, adjustVars = adjustVars,
                                 t0 = T.max,
                                 ntrt = 2, # one kind of treatment
                                 uniqtrt = c(0,1),

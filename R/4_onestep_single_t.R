@@ -96,7 +96,7 @@ onestep_single_t <- function(dat, tk, dW = rep(1, nrow(dat)),
     # estimate g_2 (censoring)
     # ====================================================================================================
     message('estimating g_2')
-    g2_hat <- estimateCensoring(dataList = datalist, adjustVars = adjustVars,
+    g2_hat <- survtmle:::estimateCensoring(dataList = datalist, adjustVars = adjustVars,
                                 t0 = tk,
                                 ntrt = 2, # one kind of treatment
                                 uniqtrt = c(0,1),
