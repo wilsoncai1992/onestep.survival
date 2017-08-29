@@ -23,7 +23,7 @@ survtmle_survival_single_t <- function(dat, tk,
     # ===================================================================================
     # preparation
     # ===================================================================================
-    after_check <- check_and_preprocess(dat = dat, dW = dW, T.cutoff = T.cutoff)
+    after_check <- check_and_preprocess_data(dat = dat, dW = dW, T.cutoff = T.cutoff)
     dat <- after_check$dat
     dW <- after_check$dW
     n.data <- after_check$n.data

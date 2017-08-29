@@ -7,7 +7,7 @@
 #' @return
 #' @export
 #'
-check_and_preprocess <- function(dat, dW, nbin = 4, T.cutoff = NULL) {
+check_and_preprocess_data <- function(dat, dW, nbin = 4, T.cutoff = NULL) {
     to_keep <- (dat$T.tilde != 0)
     dW <- dW[to_keep]
     dat <- dat[to_keep,]

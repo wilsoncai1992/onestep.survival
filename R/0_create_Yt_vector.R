@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' # TO DO
-create.Y.t.vec <- function(Time, t.vec) {
+create_Yt_vector <- function(Time, t.vec) {
     out.vec <- (Time >= t.vec) + 0
     return(out.vec)
 }
@@ -28,7 +28,7 @@ create.Y.t.vec <- function(Time, t.vec) {
 #'
 #' @examples
 #' # TO DO
-create.Y.t.vec_Delta1 <- function(Time, Delta, t.vec) {
+create_Yt_vector_with_censor <- function(Time, Delta, t.vec) {
     out.vec <- ((Time == t.vec) & (Delta == 1)) + 0
     return(out.vec)
 }

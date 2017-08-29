@@ -71,7 +71,7 @@ surv.one.step <- function(dat,
     # ===================================================================================
     # preparation
     # ===================================================================================
-    after_check <- check_and_preprocess(dat = dat, dW = dW, T.cutoff = T.cutoff)
+    after_check <- check_and_preprocess_data(dat = dat, dW = dW, T.cutoff = T.cutoff)
     dat <- after_check$dat
     dW <- after_check$dW
     n.data <- after_check$n.data
@@ -170,8 +170,8 @@ surv.one.step <- function(dat,
 
         for (it.n in 1:n.data) {
 
-            t_Delta1.vec <- create.Y.t.vec_Delta1(Time = dat$T.tilde[it.n], Delta = dat$delta[it.n], t.vec = 1:max(T.uniq))
-            t.vec <- create.Y.t.vec(Time = dat$T.tilde[it.n], t.vec = 1:max(T.uniq))
+            t_Delta1.vec <- create_Yt_vector_with_censor(Time = dat$T.tilde[it.n], Delta = dat$delta[it.n], t.vec = 1:max(T.uniq))
+            t.vec <- create_Yt_vector(Time = dat$T.tilde[it.n], t.vec = 1:max(T.uniq))
             alpha2 <- (t_Delta1.vec - t.vec * h.hat.t_full[it.n,])
 
             alpha1 <- -I.A.dW[it.n]/g.fitted[it.n]/Gn.A1.t_full[it.n,]/Qn.A1.t_full[it.n,]

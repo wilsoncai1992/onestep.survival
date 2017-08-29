@@ -39,7 +39,7 @@ surv.one.step.complete <- function(dat,
     # ================================================================================================
     # preparation
     # ================================================================================================
-    after_check <- check_and_preprocess(dat = dat, dW = dW, T.cutoff = T.cutoff)
+    after_check <- check_and_preprocess_data(dat = dat, dW = dW, T.cutoff = T.cutoff)
     dat <- after_check$dat
     dW <- after_check$dW
     n.data <- after_check$n.data
@@ -113,7 +113,7 @@ surv.one.step.complete <- function(dat,
     D1.A1.t <- matrix(0, nrow = n.data, ncol = length(T.uniq))
 
     for (it.n in 1:n.data) {
-        Y.vec <- create.Y.t.vec(Time = dat$T.tilde[it.n], t.vec = T.uniq)
+        Y.vec <- create_Yt_vector(Time = dat$T.tilde[it.n], t.vec = T.uniq)
         temp <- Y.vec - Qn.A1.t[it.n,]
         D1 <- temp / g.fitted[it.n] * I.A.dW[it.n]
         D1.A1 <- temp / g.fitted[it.n] # also update the samples without A = 1
@@ -198,7 +198,7 @@ surv.one.step.complete <- function(dat,
         D1.t <- matrix(0, nrow = n.data, ncol = length(T.uniq))
         D1.A1.t <- matrix(0, nrow = n.data, ncol = length(T.uniq))
         for (it.n in 1:n.data) {
-            Y.vec <- create.Y.t.vec(Time = dat$T.tilde[it.n], t.vec = T.uniq)
+            Y.vec <- create_Yt_vector(Time = dat$T.tilde[it.n], t.vec = T.uniq)
             temp <- Y.vec - Qn.current[it.n,]
             D1 <- temp / g.fitted[it.n] * I.A.dW[it.n]
             D1.A1 <- temp / g.fitted[it.n] # also update the samples without A = 1
