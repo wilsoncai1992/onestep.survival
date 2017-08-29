@@ -7,7 +7,7 @@
 # #'
 # #' @examples
 # #' #NA
-# eval_loglikeli <- function(obj) {
+# eval_loglike <- function(obj) {
 #     Qn.current_full <- obj$Qn.current_full
 #     h.hat.t_full_current <- obj$h.hat.t_full_current
 
@@ -45,7 +45,7 @@
 #'
 #' @examples
 #' #NA
-eval_loglikeli <- function(obj, dW) {
+eval_loglike <- function(obj, dW) {
 
     Qn.current_full <- obj$Qn.current_full
     h.hat.t_full_current <- obj$h.hat.t_full_current

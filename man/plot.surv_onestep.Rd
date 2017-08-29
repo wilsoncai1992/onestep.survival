@@ -7,7 +7,7 @@
 \method{plot}{surv_onestep}(onestepfit, col = "green", add = FALSE, ...)
 }
 \arguments{
-\item{onestepfit}{object returned by surv.one.step or surv.one.step.complete}
+\item{onestepfit}{object returned by surv_onestep or surv_onestep_complete}
 
 \item{col}{line color}
 
