@@ -26,7 +26,7 @@
 #' @import survtmle
 #' @import abind
 #' @import SuperLearner
-surv.one.step.complete <- function(dat,
+surv_onestep_complete <- function(dat,
                                    dW,
                                    g.SL.Lib = c("SL.glm", "SL.step", "SL.glm.interaction"),
                                    ht.SL.Lib = c("SL.mean","SL.glm", "SL.gam", "SL.earth"),
@@ -70,7 +70,7 @@ surv.one.step.complete <- function(dat,
     T.max <- max(T.uniq)
 
 
-    h.hat.t <- haz_SL_wrapper(dat = dat, T.uniq = T.uniq, ht.SL.Lib = ht.SL.Lib)
+    h.hat.t <- estimate_hazard_SL(dat = dat, T.uniq = T.uniq, ht.SL.Lib = ht.SL.Lib)
     # h.hat at all time t=[0,t.max]
     h.hat.t_full <- as.matrix(h.hat.t$out_haz_full)
     # h.hat at observed unique time t = T.grid
@@ -131,7 +131,7 @@ surv.one.step.complete <- function(dat,
     # update
     # ================================================================================================
     message('targeting')
-    stopping.criteria <- sqrt(l2.inner.step(Pn.D1.t, Pn.D1.t, T.uniq))/length(T.uniq) # 10-17
+    stopping.criteria <- sqrt(l2_inner_prod_step(Pn.D1.t, Pn.D1.t, T.uniq))/length(T.uniq) # 10-17
 
     update.tensor <- matrix(0, nrow = n.data, ncol = length(T.uniq))
     iter.count <- 0
@@ -144,7 +144,7 @@ surv.one.step.complete <- function(dat,
         # update the qn
         # ------------------------------------------------------------------------
         # vectorized
-        update.mat <- compute.update(D1.t.func.prev = D1.t,
+        update.mat <- compute_onestep_update_matrix(D1.t.func.prev = D1.t,
                                      Pn.D1.func.prev = Pn.D1.t,
                                      dat = dat,
                                      T.uniq = T.uniq,
@@ -160,13 +160,13 @@ surv.one.step.complete <- function(dat,
         qn.current <- qn.A1.t * exp(epsilon.step * intergrand)
 
         # normalize the updated qn
-        norm.factor <- compute.step.cdf(pdf.mat = qn.current, t.vec = T.uniq, start = Inf)[,1] #09-06
+        norm.factor <- compute_step_cdf(pdf.mat = qn.current, t.vec = T.uniq, start = Inf)[,1] #09-06
         qn.current[norm.factor > 1,] <- qn.current[norm.factor > 1,] / norm.factor[norm.factor > 1] #09-06
 
         # 11-26
         # For density sum > 1: truncate the density outside sum = 1 to be zero
         # i.e. flat cdf beyond sum to 1
-        # cdf_per_subj <- compute.step.cdf(pdf.mat = qn.current, t.vec = T.uniq, start = -Inf)
+        # cdf_per_subj <- compute_step_cdf(pdf.mat = qn.current, t.vec = T.uniq, start = -Inf)
         # qn.current[cdf_per_subj > 1] <- 0
 
         # if some qn becomes all zero, prevent NA exisitence
@@ -174,15 +174,15 @@ surv.one.step.complete <- function(dat,
         # =============================================================================
         # compute new Qn
 
-        Qn.current <- compute.step.cdf(pdf.mat = qn.current, t.vec = T.uniq, start = Inf) # 2016-09-06
+        Qn.current <- compute_step_cdf(pdf.mat = qn.current, t.vec = T.uniq, start = Inf) # 2016-09-06
         cdf_offset <- 1 - Qn.current[,1] # 2016-09-06
         Qn.current <- Qn.current + cdf_offset # 2016-09-06
 
-        # Qn.current <- apply(qn.current, 1, function(x) compute.step.cdf(pdf.vec = x, t.vec = T.uniq, start = Inf))
+        # Qn.current <- apply(qn.current, 1, function(x) compute_step_cdf(pdf.vec = x, t.vec = T.uniq, start = Inf))
         # Qn.current <- t(Qn.current)
 
         # check error
-        # all.equal(compute.step.cdf(pdf.vec = qn.current[1,], t.vec = T.uniq, start = Inf), Qn.current[1,])
+        # all.equal(compute_step_cdf(pdf.vec = qn.current[1,], t.vec = T.uniq, start = Inf), Qn.current[1,])
         # ------------------------------------------------
         # print('New Qn')
 
@@ -212,7 +212,7 @@ surv.one.step.complete <- function(dat,
         # previous stopping criteria
         stopping.prev <- stopping.criteria
         # new stopping criteria
-        stopping.criteria <- sqrt(l2.inner.step(Pn.D1.t, Pn.D1.t, T.uniq))/length(T.uniq)
+        stopping.criteria <- sqrt(l2_inner_prod_step(Pn.D1.t, Pn.D1.t, T.uniq))/length(T.uniq)
         iter.count <- iter.count + 1
 
         ########################################################################

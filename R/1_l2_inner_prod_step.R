@@ -11,7 +11,7 @@
 #'
 #' @examples
 #' # TO DO
-l2.inner.step <- function(f.step, g.step, T.grid) {
+l2_inner_prod_step <- function(f.step, g.step, T.grid) {
     if(is.vector(f.step) & is.vector(g.step)){
         # both f and g are one sample
         f.times.g <- f.step * g.step
@@ -32,7 +32,7 @@ l2.inner.step <- function(f.step, g.step, T.grid) {
         f.times.g <- f.step * g.step
     }
     # ------------------------------------------------------------------------------------
-    result <- compute.step.cdf(f.times.g, T.grid)
+    result <- compute_step_cdf(f.times.g, T.grid)
     if(!is.vector(f.step) | !is.vector(g.step)){
         # there is multi-sample
         result <- apply(result, 1, function(obj) tail(obj, 1))

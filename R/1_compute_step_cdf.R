@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' # TO DO
-compute.step.cdf <- function(pdf.mat, t.vec, start = -Inf) {
+compute_step_cdf <- function(pdf.mat, t.vec, start = -Inf) {
         interval.size <- diff(t.vec)
         # interval.size <- c(0, interval.size)
         interval.size <- c(interval.size, 0) # 09-07

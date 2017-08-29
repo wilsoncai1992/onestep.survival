@@ -48,7 +48,7 @@
 #' dat <- dat[,c('ID', Wname, 'A', "T.tilde", "delta")]
 #'
 #' dW <- rep(1, nrow(dat))
-#' onestepfit <- surv.one.step.differnece(dat = dat,
+#' onestepfit <- surv_onestep_difference(dat = dat,
 #'                                        dW = dW,
 #'                                        verbose = FALSE,
 #'                                        epsilon.step = 1e-3,
@@ -57,7 +57,7 @@
 #' @import survtmle
 #' @import abind
 #' @import SuperLearner
-surv.one.step.differnece <- function(dat,
+surv_onestep_difference <- function(dat,
                           dW = rep(1, nrow(dat)),
                           g.SL.Lib = c("SL.glm", "SL.step", "SL.glm.interaction"),
                           Delta.SL.Lib = c("SL.mean","SL.glm", "SL.gam", "SL.earth"),
@@ -109,8 +109,8 @@ surv.one.step.differnece <- function(dat,
     # ===================================================================================
     message('estimating conditional hazard')
 
-    h.hat.t_1 <- haz_SL_wrapper(dat = dat, T.uniq = T.uniq, ht.SL.Lib = ht.SL.Lib)
-    h.hat.t_0 <- haz_SL_wrapper(dat = dat0, T.uniq = T.uniq, ht.SL.Lib = ht.SL.Lib)
+    h.hat.t_1 <- estimate_hazard_SL(dat = dat, T.uniq = T.uniq, ht.SL.Lib = ht.SL.Lib)
+    h.hat.t_0 <- estimate_hazard_SL(dat = dat0, T.uniq = T.uniq, ht.SL.Lib = ht.SL.Lib)
     # h.hat at all time t=[0,t.max]
     h.hat.t_full_1 <- as.matrix(h.hat.t_1$out_haz_full)
     h.hat.t_full_0 <- as.matrix(h.hat.t_0$out_haz_full)
@@ -121,9 +121,9 @@ surv.one.step.differnece <- function(dat,
     # estimate censoring G(A|W)
     # ===================================================================================
     message('estimating censoring')
-    G.hat.t_1 <- censor_SL_wrapper(dat = dat, T.uniq = T.uniq,
+    G.hat.t_1 <- estimate_censoring_SL(dat = dat, T.uniq = T.uniq,
                                  Delta.SL.Lib = Delta.SL.Lib)
-    G.hat.t_0 <- censor_SL_wrapper(dat = dat0, T.uniq = T.uniq,
+    G.hat.t_0 <- estimate_censoring_SL(dat = dat0, T.uniq = T.uniq,
                                  Delta.SL.Lib = Delta.SL.Lib)
     # cutoff <- 0.1
     cutoff <- 0.05
@@ -254,7 +254,7 @@ surv.one.step.differnece <- function(dat,
     # update
     # ===================================================================================
     message('targeting')
-    stopping.criteria <- sqrt(l2.inner.step(Pn.D1.t, Pn.D1.t, T.uniq))/length(T.uniq) # 10-17
+    stopping.criteria <- sqrt(l2_inner_prod_step(Pn.D1.t, Pn.D1.t, T.uniq))/length(T.uniq) # 10-17
     if(verbose) print(stopping.criteria)
 
     update.tensor <- matrix(0, nrow = n.data, ncol = length(T.uniq))
@@ -270,8 +270,8 @@ surv.one.step.differnece <- function(dat,
         # update the qn
         # ------------------------------------------------------------------------
         # vectorized
-        # update.mat <- compute.update.difference(D1.t.func.prev = D1.t,
-        update.mat <- compute.update(D1.t.func.prev = D1.t,
+        # update.mat <- compute_onestep_update_matrix_diff(D1.t.func.prev = D1.t,
+        update.mat <- compute_onestep_update_matrix(D1.t.func.prev = D1.t,
                                      Pn.D1.func.prev = Pn.D1.t,
                                      dat = dat,
                                      T.uniq = T.uniq,
@@ -297,19 +297,19 @@ surv.one.step.differnece <- function(dat,
         qn.current_full_1 <- qn.A1.t_full_1 * exp(epsilon.step * replicate(T.max, intergrand[,1])) #10-23
 
         # For density sum > 1: normalize the updated qn
-        norm.factor_1 <- compute.step.cdf(pdf.mat = qn.current_1, t.vec = T.uniq, start = Inf)[,1] #09-06
+        norm.factor_1 <- compute_step_cdf(pdf.mat = qn.current_1, t.vec = T.uniq, start = Inf)[,1] #09-06
         # qn.current_1[norm.factor_1 > 1,] <- qn.current_1[norm.factor_1 > 1,] / norm.factor_1[norm.factor_1 > 1] #09-06
         # qn.current_full_1[norm.factor_1 > 1,] <- qn.current_full_1[norm.factor_1 > 1,] / norm.factor_1[norm.factor_1 > 1] #10-23
-        norm.factor_0 <- compute.step.cdf(pdf.mat = qn.current_0, t.vec = T.uniq, start = Inf)[,1] #09-06
+        norm.factor_0 <- compute_step_cdf(pdf.mat = qn.current_0, t.vec = T.uniq, start = Inf)[,1] #09-06
         # qn.current_0[norm.factor_0 > 1,] <- qn.current_0[norm.factor_0 > 1,] / norm.factor_0[norm.factor_0 > 1] #09-06
         # qn.current_full_0[norm.factor_0 > 1,] <- qn.current_full_0[norm.factor_0 > 1,] / norm.factor_0[norm.factor_0 > 1] #10-23
 
         # 11-26
         # For density sum > 1: truncate the density outside sum = 1 to be zero
         # i.e. flat cdf beyond sum to 1
-        # cdf_per_subj <- compute.step.cdf(pdf.mat = qn.current, t.vec = T.uniq, start = -Inf)
+        # cdf_per_subj <- compute_step_cdf(pdf.mat = qn.current, t.vec = T.uniq, start = -Inf)
         # qn.current[cdf_per_subj > 1] <- 0
-        # cdf_per_subj <- compute.step.cdf(pdf.mat = qn.current_full, t.vec = 1:max(T.uniq), start = -Inf)
+        # cdf_per_subj <- compute_step_cdf(pdf.mat = qn.current_full, t.vec = 1:max(T.uniq), start = -Inf)
         # qn.current_full[cdf_per_subj > 1] <- 0
 
         # if some qn becomes all zero, prevent NA exisitence
@@ -320,25 +320,25 @@ surv.one.step.differnece <- function(dat,
         # =============================================================================
         # compute new Qn
 
-        Qn.current_1 <- compute.step.cdf(pdf.mat = qn.current_1, t.vec = T.uniq, start = Inf) # 2016-09-06
+        Qn.current_1 <- compute_step_cdf(pdf.mat = qn.current_1, t.vec = T.uniq, start = Inf) # 2016-09-06
         cdf_offset_1 <- 1 - Qn.current_1[,1] # 2016-09-06
         Qn.current_1 <- Qn.current_1 + cdf_offset_1 # 2016-09-06
 
-        Qn.current_full_1 <- compute.step.cdf(pdf.mat = qn.current_full_1, t.vec = 1:max(T.uniq), start = Inf) # 10-23
+        Qn.current_full_1 <- compute_step_cdf(pdf.mat = qn.current_full_1, t.vec = 1:max(T.uniq), start = Inf) # 10-23
         cdf_offset_1 <- 1 - Qn.current_full_1[,1] # 10-23
         Qn.current_full_1 <- Qn.current_full_1 + cdf_offset_1 # 10-23
 
-        Qn.current_0 <- compute.step.cdf(pdf.mat = qn.current_0, t.vec = T.uniq, start = Inf) # 2016-09-06
+        Qn.current_0 <- compute_step_cdf(pdf.mat = qn.current_0, t.vec = T.uniq, start = Inf) # 2016-09-06
         cdf_offset_0 <- 1 - Qn.current_0[,1] # 2016-09-06
         Qn.current_0 <- Qn.current_0 + cdf_offset_0 # 2016-09-06
 
-        Qn.current_full_0 <- compute.step.cdf(pdf.mat = qn.current_full_0, t.vec = 1:max(T.uniq), start = Inf) # 10-23
+        Qn.current_full_0 <- compute_step_cdf(pdf.mat = qn.current_full_0, t.vec = 1:max(T.uniq), start = Inf) # 10-23
         cdf_offset_0 <- 1 - Qn.current_full_0[,1] # 10-23
         Qn.current_full_0 <- Qn.current_full_0 + cdf_offset_0 # 10-23
 
         Psin.current <- Qn.current_1 - Qn.current_0
         # check error
-        # all.equal(compute.step.cdf(pdf.vec = qn.current[1,], t.vec = T.uniq, start = Inf), Qn.current[1,])
+        # all.equal(compute_step_cdf(pdf.vec = qn.current[1,], t.vec = T.uniq, start = Inf), Qn.current[1,])
         # ------------------------------------------------
         # print('New Qn')
         # =============================================================================
@@ -382,8 +382,8 @@ surv.one.step.differnece <- function(dat,
         # previous stopping criteria
         stopping.prev <- stopping.criteria
         # new stopping criteria
-        # stopping.criteria <- sqrt(l2.inner.step(Pn.D1.t, Pn.D1.t, T.uniq))/length(T.uniq)
-        stopping.criteria <- sqrt(l2.inner.step(Pn.D1.t, Pn.D1.t, T.uniq)/max(T.uniq))
+        # stopping.criteria <- sqrt(l2_inner_prod_step(Pn.D1.t, Pn.D1.t, T.uniq))/length(T.uniq)
+        stopping.criteria <- sqrt(l2_inner_prod_step(Pn.D1.t, Pn.D1.t, T.uniq)/max(T.uniq))
         iter.count <- iter.count + 1
         # ===================================================================================
         # evaluate log-likelihood

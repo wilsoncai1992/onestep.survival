@@ -14,7 +14,7 @@
 #' # TO DO
 #' @import dplyr
 #' @import tidyr
-haz_SL_wrapper <- function(dat,
+estimate_hazard_SL <- function(dat,
                            T.uniq,
                            ht.SL.Lib = c("SL.mean","SL.glm", "SL.gam", "SL.earth")
                            ) {

@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' # TO DO
-gen.step.func <- function(y.vec, t.vec) {
+create_step_func <- function(y.vec, t.vec) {
     if (length(y.vec) != (length(t.vec) + 1)) {
         warning('the legnth of input vectors incorrect!')
     }

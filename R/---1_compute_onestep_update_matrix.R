@@ -13,23 +13,23 @@
 #' @examples
 #' # TO DO
 #' @importFrom dplyr left_join
-compute.update.difference <- function(D1.t.func.prev, Pn.D1.func.prev, dat, T.uniq, W_names, dW) {
+compute_onestep_update_matrix_diff <- function(D1.t.func.prev, Pn.D1.func.prev, dat, T.uniq, W_names, dW) {
     # formula on p.30
-    # result <- l2.inner.step(Pn.D1.t, D1.t, T.uniq) /
-    # sqrt(l2.inner.step(D1.t, D1.t, T.uniq))
+    # result <- l2_inner_prod_step(Pn.D1.t, D1.t, T.uniq) /
+    # sqrt(l2_inner_prod_step(D1.t, D1.t, T.uniq))
     # formula on p.28
-    result <- l2.inner.step(Pn.D1.func.prev, D1.t.func.prev, T.uniq) /
-    sqrt(l2.inner.step(Pn.D1.func.prev, Pn.D1.func.prev, T.uniq))
+    result <- l2_inner_prod_step(Pn.D1.func.prev, D1.t.func.prev, T.uniq) /
+    sqrt(l2_inner_prod_step(Pn.D1.func.prev, Pn.D1.func.prev, T.uniq))
 
     # WILSON MADE: MAY BE WRONG
-    # result <- l2.inner.step(abs(Pn.D1.func.prev), D1.t.func.prev, T.uniq) /
-    # sqrt(l2.inner.step(Pn.D1.func.prev, Pn.D1.func.prev, T.uniq))
+    # result <- l2_inner_prod_step(abs(Pn.D1.func.prev), D1.t.func.prev, T.uniq) /
+    # sqrt(l2_inner_prod_step(Pn.D1.func.prev, Pn.D1.func.prev, T.uniq))
 
     # WILSON 2: MAY BE WRONG
     # calculate the number inside exp{} expression in submodel
     # numerator <- sweep(D1.t.func.prev, MARGIN=2, abs(Pn.D1.func.prev),`*`)
     # result <- numerator /
-    # sqrt(l2.inner.step(Pn.D1.func.prev, Pn.D1.func.prev, T.uniq))
+    # sqrt(l2_inner_prod_step(Pn.D1.func.prev, Pn.D1.func.prev, T.uniq))
 
     # ORIGINAL PAPER
     # calculate the number inside exp{} expression in submodel
@@ -52,7 +52,7 @@ compute.update.difference <- function(D1.t.func.prev, Pn.D1.func.prev, dat, T.un
 
     # numerator <- sweep(D1.t.func.prev, MARGIN=2, -abs(Pn.D1.func.prev),`*`)
     # result <- numerator /
-    #     sqrt(l2.inner.step(Pn.D1.func.prev, Pn.D1.func.prev, T.uniq))
+    #     sqrt(l2_inner_prod_step(Pn.D1.func.prev, Pn.D1.func.prev, T.uniq))
 
     # strata <- data.frame(A = dat$A, W = dat[,W_names])
     # names(strata) <- c('A', W_names)
@@ -77,7 +77,7 @@ compute.update.difference <- function(D1.t.func.prev, Pn.D1.func.prev, dat, T.un
     # )
 
     # # 2016-10-05: adjust back to ORIGINAL PAPER method
-    # one_col <- compute.step.cdf(pdf.mat = result_new, t.vec = T.uniq, start = Inf)[,1]
+    # one_col <- compute_step_cdf(pdf.mat = result_new, t.vec = T.uniq, start = Inf)[,1]
     # result_new <- matrix(one_col,nrow = nrow(dat),ncol = ncol(result_new))
 
     # # if (is.na(result)) {

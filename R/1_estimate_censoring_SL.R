@@ -14,7 +14,7 @@
 #' @import survtmle
 #' @import dplyr
 #' @import tidyr
-censor_SL_wrapper <- function(dat,
+estimate_censoring_SL <- function(dat,
                               T.uniq,
                               Delta.SL.Lib = c("SL.mean","SL.glm", "SL.gam", "SL.earth")
                               ) {

@@ -1,6 +1,6 @@
 #' Plot the survival curve estimator
 #'
-#' @param onestepfit object returned by surv.one.step or surv.one.step.complete
+#' @param onestepfit object returned by surv_onestep or surv_onestep_complete
 #' @param col line color
 #' @param add whether to add to existing plot
 #' @param ...
