@@ -4,50 +4,79 @@
 \alias{surv.one.step}
 \title{One-step TMLE estimator for survival curve}
 \usage{
-surv.one.step(dat, dW, g.SL.Lib = c("SL.glm", "SL.step",
+surv.one.step(dat, dW = rep(1, nrow(dat)), g.SL.Lib = c("SL.glm", "SL.step",
   "SL.glm.interaction"), Delta.SL.Lib = c("SL.mean", "SL.glm", "SL.gam",
-  "SL.earth"), ht.SL.Lib = c("SL.mean", "SL.glm", "SL.gam", "SL.earth"), ...,
+  "SL.earth"), ht.SL.Lib = c("SL.mean", "SL.glm", "SL.gam", "SL.earth"),
   epsilon.step = 1e-05, max.iter = 1000, tol = 1/nrow(dat),
-  T.cutoff = NULL, verbose = TRUE)
+  T.cutoff = NULL, verbose = TRUE, ...)
 }
 \arguments{
-\item{dat}{data.frame with columns T, A, C, W. All columns with character "W" will be treated as baseline covariates.}
+\item{dat}{A data.frame with columns T.tilde, delta, A, W. T.tilde = min(T, C) is either the failure time of censor time, whichever happens first. 'delta'= I(T <= C) is the indicator of whether we observe failure time. A is binary treatment. W is baseline covariates. All columns with character "W" will be treated as baseline covariates.}
 
-\item{dW}{binary input vector specifying dynamic treatment (as a function output of W)}
+\item{dW}{A binary vector specifying dynamic treatment (as a function output of W)}
 
-\item{g.SL.Lib}{SuperLearner library for fitting treatment regression}
+\item{g.SL.Lib}{A vector of string. SuperLearner library for fitting treatment regression}
 
-\item{Delta.SL.Lib}{SuperLearner library for fitting censoring regression}
+\item{Delta.SL.Lib}{A vector of string. SuperLearner library for fitting censoring regression}
 
-\item{ht.SL.Lib}{SuperLearner library for fitting conditional hazard regression}
+\item{ht.SL.Lib}{A vector of string. SuperLearner library for fitting conditional hazard regression}
+
+\item{epsilon.step}{numeric. step size for one-step recursion}
+
+\item{max.iter}{integer. maximal number of recursion for one-step}
+
+\item{tol}{numeric. tolerance for optimization}
+
+\item{T.cutoff}{int. Enforce randomized right-censoring to the observed data, so that don't estimate survival curve beyond a time point. Useful when time horizon is long.}
+
+\item{verbose}{boolean. When TRUE, plot the initial fit curve, and output the objective function value during optimzation}
 
 \item{...}{additional options for plotting initial fit curve}
-
-\item{epsilon.step}{step size for one-step recursion}
-
-\item{max.iter}{maximal number of recursion for one-step}
-
-\item{tol}{tolerance for optimization}
-
-\item{T.cutoff}{manual right censor the data; remove parts dont want to esimate}
-
-\item{verbose}{to plot the initial fit curve and the objective function value during optimzation}
 }
 \value{
-Psi.hat vector of survival curve under intervention
+Psi.hat A numeric vector of estimated treatment-specific survival curve
 
-T.uniq vector of time points where Psi.hat gets values (have same length as Psi.hat)
+T.uniq A vector of descrete time points where Psi.hat take values (have same length as Psi.hat)
 
-params list of meta-information of estimation
+params A list of estimation parameters set by user
 
-variables list of data summary
+variables A list of data summary statistics
 
-initial_fit list of initial fit (hazard, g_1, Delta)
+initial_fit A list of initial fit values (hazard, g_1, Delta)
 }
 \description{
+one-step TMLE estimate of the treatment specific survival curve. Under right-censored data
+}
+\details{
 options to ADD:
 SL.formula: the covariates to include in SL
 }
 \examples{
-# TODO
+library(simcausal)
+D <- DAG.empty()
+
+D <- D +
+    node("W", distr = "rbinom", size = 1, prob = .5) +
+    node("A", distr = "rbinom", size = 1, prob = .15 + .5*W) +
+    node("Trexp", distr = "rexp", rate = 1 + .5*W - .5*A) +
+    node("Cweib", distr = "rweibull", shape = .7 - .2*W, scale = 1) +
+    node("T", distr = "rconst", const = round(Trexp*100,0)) +
+    node("C", distr = "rconst", const = round(Cweib*100, 0)) +
+    node("T.tilde", distr = "rconst", const = ifelse(T <= C , T, C)) +
+    node("delta", distr = "rconst", const = ifelse(T <= C , 1, 0))
+setD <- set.DAG(D)
+
+dat <- sim(setD, n=3e2)
+
+library(dplyr)
+# only grab ID, W's, A, T.tilde, Delta
+Wname <- grep('W', colnames(dat), value = TRUE)
+dat <- dat[,c('ID', Wname, 'A', "T.tilde", "delta")]
+
+dW <- rep(1, nrow(dat))
+onestepfit <- surv.one.step(dat = dat,
+                            dW = dW,
+                            verbose = FALSE,
+                            epsilon.step = 1e-3,
+                            max.iter = 1e3)
 }
