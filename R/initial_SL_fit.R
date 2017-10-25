@@ -13,7 +13,7 @@
 #' @examples
 #' # TO DO
 #' @import dplyr
-#' @import tidyr
+#' @importFrom tidyr spread
 estimate_hazard_SL <- function(dat,
                            T.uniq,
                            ht.SL.Lib = c("SL.mean","SL.glm", "SL.gam", "SL.earth")
@@ -66,7 +66,7 @@ estimate_hazard_SL <- function(dat,
 
     out_haz <- Haz_hat[[3]]
     out_haz <- out_haz[,c('id', 't', 'Q1Haz')]
-    out_haz <- spread(out_haz, t, Q1Haz)
+    out_haz <- tidyr::spread(out_haz, t, Q1Haz)
     # the colname number correspond to h_{T>t-1 | T>=t-1}
     rownames(out_haz) <- out_haz$id
 
@@ -100,7 +100,7 @@ estimate_hazard_SL <- function(dat,
 #' @import SuperLearner
 #' @import survtmle
 #' @import dplyr
-#' @import tidyr
+#' @importFrom tidyr spread
 estimate_censoring_SL <- function(dat,
                               T.uniq,
                               Delta.SL.Lib = c("SL.mean","SL.glm", "SL.gam", "SL.earth")
@@ -158,7 +158,7 @@ estimate_censoring_SL <- function(dat,
     # turn into wide format
     out_censor <- dataList2$`1`
     out_censor <- out_censor[,c('id', 't', 'G_dC')]
-    out_censor <- spread(out_censor, t, G_dC)
+    out_censor <- tidyr::spread(out_censor, t, G_dC)
     # the colname number correspond to h_{T>t-1 | T>=t-1}
     rownames(out_censor) <- out_censor$id
 
