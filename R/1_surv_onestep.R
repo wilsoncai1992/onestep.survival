@@ -1403,7 +1403,7 @@ onestep_single_t <- function(dat, tk, dW = rep(1, nrow(dat)),
     # while (any(abs(meanIC[2]) > tol) & iter_count <= maxIter) {
     while ((loss_new <= loss_old) & iter_count <= maxIter) {
         iter_count <- iter_count + 1
-        print(loss_new)
+        # print(loss_new)
         # print(meanIC[1,])
 
         # fluctuate -> update to dataList2
