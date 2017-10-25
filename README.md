@@ -19,13 +19,6 @@ Currently implemented **estimators** include:
 
 ## Installation
 
-To install the CRAN release version of `onestep.survival`: 
-
-```R
-devtools::install_github('wilsoncai1992/survtmle')
-install.packages('onestep.survival')
-```
-
 To install the development version (requires the `devtools` package):
 
 ```R
@@ -34,14 +27,6 @@ devtools::install_github('wilsoncai1992/onestep.survival')
 ```
 
 ## Documentation
-
-Once the package is installed, see the [vignette](https://cran.r-project.org/web/packages/onestep.survival/vignettes/onestep.survival_vignette.pdf), consult the internal package documentation and examples. 
-
-* To see the vignette in R:
-
-```R
-vignette("onestep.survival_vignette", package="onestep.survival")
-```
 
 * To see all available package documentation:
 
