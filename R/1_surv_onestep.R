@@ -66,7 +66,7 @@ surv_onestep <- function(dat,
                           max.iter = 1e3,
                           tol = 1/nrow(dat),
                           T.cutoff = NULL,
-                          verbose = TRUE,
+                          verbose = FALSE,
                           ...) {
     # ===================================================================================
     # preparation
