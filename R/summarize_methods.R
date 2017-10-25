@@ -1,4 +1,5 @@
-#' Title
+#' summarize propensity score weights from surv_onestep object
+#'
 #'
 #' @param onestep_curve
 #'
