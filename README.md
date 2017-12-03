@@ -54,6 +54,61 @@ The data input of all methods in the package should be an `R` `data.frame` in th
 # 6  6 0 0      15     1
 ```
 
+### Usage
+
+```R
+# simulate data
+library(simcausal)
+D <- DAG.empty()
+D <- D +
+  node("W", distr = "rbinom", size = 1, prob = .5) +
+  node("A", distr = "rbinom", size = 1, prob = .35 + .4*W) +
+  # Time to failure has an exponential distribution:
+  node("Trexp", distr = "rexp", rate = 1 + .5*W - .5*A) +
+  # Time to censoring has a weibull distribution:
+  node("Cweib", distr = "rweibull", shape = .7 - .2*W, scale = 1) +
+  # Actual time to failure is scaled by 100:
+  node("T", distr = "rconst", const = round(Trexp*100,0)) +
+  node("C", distr = "rconst", const = round(Cweib*100, 0)) +
+  # Observed random variable (follow-up time):
+  node("T.tilde", distr = "rconst", const = ifelse(T <= C , T, C)) +
+  # Observed random variable (censoring indicator, 1 - failure event, 0 - censored):
+  node("delta", distr = "rconst", const = ifelse(T <= C , 1, 0))
+setD <- set.DAG(D)
+
+# Simulate the data from the above data generating distribution:
+dat <- sim(setD, n=1e2)
+# subset into observed dataset
+library(dplyr)
+# only grab ID, W's, A, T.tilde, Delta
+Wname <- grep('W', colnames(dat), value = TRUE)
+dat <- dat[,c('ID', Wname, 'A', "T.tilde", "delta")]
+head(dat)
+# check positivity
+check_positivity(dat)
+
+library(onestep.survival)
+# iterative TMLE: each time separately
+dW <- rep(1, nrow(dat))
+# dW <- rep(0, nrow(dat))
+iterative_tmle <- survtmle_multi_t(dat = dat, dW = dW,
+                                  SL.ftime = c("SL.glm","SL.mean","SL.step"),
+                                  SL.ctime = c("SL.glm","SL.mean"),
+                                  SL.trt = c("SL.glm","SL.mean","SL.step"))
+plot(iterative_tmle, add = TRUE)
+
+# one-step TMLE: target entire curve
+dW <- rep(1, nrow(dat))
+# dW <- rep(0, nrow(dat))
+onestep_whole_curve <- surv_onestep(dat = dat, dW = dW,
+                                    g.SL.Lib = c("SL.glm","SL.mean","SL.step"),
+                                    Delta.SL.Lib = c("SL.glm","SL.mean", 'SL.gam'),
+                                    ht.SL.Lib = c("SL.glm","SL.mean","SL.step", 'SL.gam'))
+plot(onestep_whole_curve, add = TRUE)
+```
+
+
+
 ## Citation
 To cite `onestep.survival` in publications, please use:
 > Cai W, van der Laan MJ (2016). *One-step TMLE for time-to-event outcomes.* Working paper.
