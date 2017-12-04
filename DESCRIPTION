@@ -17,7 +17,7 @@ Imports:
     dplyr,
     Matrix
 Remotes:
-  github::wilsoncai1992/survtmle2
+    github::wilsoncai1992/survtmle2
 Suggests:
     testthat
 License: GPL-2
