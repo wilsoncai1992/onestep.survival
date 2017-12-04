@@ -12,7 +12,6 @@ Depends:
 Imports:
     tmle,
     foreach,
-    survtmle2,
     tidyr,
     abind,
     dplyr,
