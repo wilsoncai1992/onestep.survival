@@ -12,11 +12,13 @@ Depends:
 Imports:
     tmle,
     foreach,
-    survtmle,
+    survtmle2,
     tidyr,
     abind,
     dplyr,
     Matrix
+Remotes:
+  github::wilsoncai1992/survtmle2
 Suggests:
     testthat
 License: GPL-2

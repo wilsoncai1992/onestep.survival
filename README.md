@@ -25,7 +25,7 @@ To install the development version (requires the `devtools` package):
 install.packages('SuperLearner')
 install.packages('tmle')
 install.packages('Matrix')
-devtools::install_github('wilsoncai1992/survtmle')
+devtools::install_github('wilsoncai1992/survtmle2')
 devtools::install_github('wilsoncai1992/onestep.survival')
 ```
 
