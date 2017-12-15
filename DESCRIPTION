@@ -11,6 +11,7 @@ Depends:
     Matrix
 Imports:
     tmle,
+    survtmle2,
     foreach,
     tidyr,
     abind,
